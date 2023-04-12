@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
 public class SplashScreen extends AppCompatActivity {
 
     Button LetGo;
@@ -20,7 +21,7 @@ public class SplashScreen extends AppCompatActivity {
         LetGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), login.class));
                 finish();
             }
         });
