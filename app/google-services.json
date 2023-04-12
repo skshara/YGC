@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "392769618844",
+    "project_id": "ygccomp",
+    "storage_bucket": "ygccomp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392769618844:android:e364dc6dddc630d2eebe59",
+        "android_client_info": {
+          "package_name": "com.jhc.ygc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392769618844-28vulrlfpscciila0o718gsuchbrc9j6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVWBfq85J50GHiTgdeoSCKwsbmHJ0Y-fw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392769618844-28vulrlfpscciila0o718gsuchbrc9j6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
