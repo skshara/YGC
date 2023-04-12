@@ -12,13 +12,11 @@
         android:theme="@style/Theme.YGC"
         tools:targetApi="31" >
         <activity
+            tools:node="merge"
             android:name=".login"
             android:exported="false" />
         <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
-        <activity
+            tools:node="merge"
             android:name=".SplashScreen"
             android:exported="true" >
             <intent-filter>
@@ -28,11 +26,13 @@
             </intent-filter>
         </activity>
         <activity
+            tools:node="merge"
             android:name=".MainActivity"
-            android:exported="false" >
-        </activity>
+            android:exported="true" />
 
         <meta-data
+            tools:node="merge"
+            android:exported="false"
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
