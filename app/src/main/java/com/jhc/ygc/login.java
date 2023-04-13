@@ -3,6 +3,7 @@ package com.jhc.ygc;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,6 +20,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class login extends AppCompatActivity {
+    private ProgressBar progressBarAnimation;
+    private ObjectAnimator progresanimator;
 
     FirebaseAuth fAuth;
     EditText mEmail;
@@ -29,6 +32,7 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
 
         mEmail = findViewById(R.id.username);
@@ -79,6 +83,7 @@ public class login extends AppCompatActivity {
                     }
                 });
             }
+
         });
     }
 }
