@@ -19,6 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class login extends AppCompatActivity {
+
     FirebaseAuth fAuth;
     EditText mEmail;
     EditText mPassword;
@@ -28,6 +29,7 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         mEmail = findViewById(R.id.username);
         mPassword = findViewById(R.id.password);
@@ -42,10 +44,12 @@ public class login extends AppCompatActivity {
         }
 
         mLogin.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
+
 
                 if(TextUtils.isEmpty(email)) {
                     mEmail.setError("Email is required");
