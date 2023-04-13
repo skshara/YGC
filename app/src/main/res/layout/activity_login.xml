@@ -52,7 +52,7 @@
             android:id="@+id/txtuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter the username"
+            android:text="Enter the email"
             android:textSize="12sp"
        />
 
@@ -60,10 +60,11 @@
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Username"
-
+        android:hint="Email"
         android:textColorHint="#A8A8A8"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        />
 
     <TextView
         android:id="@+id/textView4"
@@ -76,9 +77,9 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-
+            android:textColor="@color/black"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:hint="Password"
             android:textColorHint="#A8A8A8"
             android:textSize="20sp" />
