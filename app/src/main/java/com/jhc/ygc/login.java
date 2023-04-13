@@ -26,7 +26,7 @@ public class login extends AppCompatActivity {
     FirebaseAuth fAuth;
     EditText mEmail;
     EditText mPassword;
-    Button mLogin;
+    Button mLogin,signUp,rstPass;
     ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,8 @@ public class login extends AppCompatActivity {
 
 
         mEmail = findViewById(R.id.username);
+        signUp = findViewById(R.id.signup);
+        rstPass = findViewById(R.id.rstpwd);
         mPassword = findViewById(R.id.password);
         mLogin = findViewById(R.id.login);
         progressBar = findViewById(R.id.progressBar);
@@ -46,6 +48,22 @@ public class login extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
             finish();
         }
+
+        rstPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),passReset.class));
+                finish();
+            }
+        });
+
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),register.class));
+                finish();
+            }
+        });
 
         mLogin.setOnClickListener(new View.OnClickListener() {
 
