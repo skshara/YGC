@@ -22,7 +22,6 @@ public class passReset extends AppCompatActivity {
     EditText mEmail;
     Button reset;
     FirebaseAuth fAuth;
-    Button backtoLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +29,9 @@ public class passReset extends AppCompatActivity {
         setContentView(R.layout.activity_pass_reset);
         mEmail = findViewById(R.id.email);
         reset = findViewById(R.id.reset);
-        backtoLogin = findViewById(R.id.back);
 
         String email = mEmail.getText().toString().trim();
-        backtoLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),login.class));
-                finish();
-            }
-        });
+
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +47,6 @@ public class passReset extends AppCompatActivity {
                     }
                 });
             }
-
         });
     }
 }
