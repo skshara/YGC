@@ -128,12 +128,20 @@
         android:textSize="12sp" />
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:flow_verticalBias="0.26" />
+
+       <com.google.android.material.floatingactionbutton.FloatingActionButton
            android:id="@+id/glebtn"
            android:layout_width="151dp"
            android:layout_height="wrap_content"
            android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-
+         android:layout_marginTop="15dp"
            android:src="@drawable/glelogo" />
 </LinearLayout>
