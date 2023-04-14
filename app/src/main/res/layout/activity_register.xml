@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+
         android:fontFamily="@font/alfa_slab_one"
         android:text="Register to Use the Application"
         android:textAlignment="center"
@@ -30,68 +30,108 @@
         app:srcCompat="@drawable/rgstr" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter your Username" />
+        android:text="Fill the following fields to Register" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usrnm"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-6dp">
+        android:layout_marginTop="13dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username"
+            android:inputType="textPersonName"
             android:textColorHint="#7C7C7C" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Enter your Email" />
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/emailedt"
-        android:layout_marginTop="-6dp"
+        android:layout_marginTop="3dp"
+
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             android:hint="E-mail"
             android:textColorHint="#7C7C7C"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Enter your Password" />
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/pwd"
-        android:layout_marginTop="-6dp"
+        android:layout_marginTop="3dp"
+        app:passwordToggleEnabled="true"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:inputType="textPassword"
             android:textColorHint="#7C7C7C"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Button
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="back to login" />
-</LinearLayout>
+        android:id="@+id/repwd"
+        app:passwordToggleEnabled="true"
+
+        android:layout_marginTop="3dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Re Enter Password"
+            android:inputType="textPassword"
+            android:textColorHint="#7C7C7C"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/grd"
+        android:layout_marginTop="3dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Grade"
+            android:inputType="number"
+            android:textColorHint="#7C7C7C"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        >
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:text="login" />
+
+        <Button
+            android:id="@+id/regbtn"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_gravity="right"
+            android:layout_marginLeft="112dp"
+            android:text="Register" />
+
+    </LinearLayout>
+
+    </LinearLayout>
