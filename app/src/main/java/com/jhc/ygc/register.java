@@ -75,6 +75,7 @@ public class register extends AppCompatActivity {
                 String password2 = mPass2.getText().toString().trim();
                 final String fullname = mFullName.getText().toString().trim();
                 final String grade = mGrade.getText().toString().trim();
+                Integer Grade = Integer.parseInt(grade);
 
                 if(TextUtils.isEmpty(email)) {
                     mEmail.setError("Email is required");
@@ -85,14 +86,22 @@ public class register extends AppCompatActivity {
                     return;
                 }
 
+                if(TextUtils.isEmpty(grade)) {
+                    mGrade.setError("Type your grade");
+                }
+
                 if(!password.equals(password2)) {
                     mPassword.setError("The passwords don't match");
                     return;
                 }
 
-                if(password.length() < 9) {
+                if(password.length() < 8) {
                     mPassword.setError("The password length should be 8 or more than 8");
                     return;
+                }
+
+                if(Grade == 0 || Grade > 13) {
+                    mGrade.setError("Enter valid grade");
                 }
 
 

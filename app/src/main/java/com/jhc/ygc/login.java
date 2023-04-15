@@ -43,6 +43,17 @@ public class login extends AppCompatActivity {
     public final static int RC_SIGN_IN = 123;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser user = fAuth.getCurrentUser();
+        if(user!=null){
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -58,6 +69,10 @@ public class login extends AppCompatActivity {
         glebtn = findViewById(R.id.glebtn);
 
         fAuth = FirebaseAuth.getInstance();
+
+
+
+
 
         createRequest();
 
@@ -143,6 +158,7 @@ public class login extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -160,7 +176,7 @@ public class login extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
-            updateUI(account);
+            firebaseAuthWithGoogle(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -168,7 +184,7 @@ public class login extends AppCompatActivity {
         }
     }
 
-    private void updateUI(GoogleSignInAccount acct) {
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
