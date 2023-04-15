@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class passReset extends AppCompatActivity {
     EditText mEmail;
-    Button reset;
+    Button reset,login;
     FirebaseAuth fAuth;
 
     @Override
@@ -29,23 +29,36 @@ public class passReset extends AppCompatActivity {
         setContentView(R.layout.activity_pass_reset);
         mEmail = findViewById(R.id.email);
         reset = findViewById(R.id.reset);
-
-        String email = mEmail.getText().toString().trim();
+        login = (Button)findViewById(R.id.back);
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fAuth.getInstance().setLanguageCode("en"); // Set to English
-                fAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                fAuth.getInstance().sendPasswordResetEmail(mEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(),"Password reset link sent to email address",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(passReset.this,"Password reset link sent to email address",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(),login.class));
+                            finish();
                         } else {
-                            Toast.makeText(passReset.this,"Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(passReset.this,"Error: Please check your email address and try again", Toast.LENGTH_SHORT).show();
                         }
                     }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(passReset.this,e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 });
+            }
+        });
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),login.class));
+                finish();
             }
         });
     }

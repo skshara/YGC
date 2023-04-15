@@ -51,7 +51,7 @@
             android:layout_width="301dp"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:hint="email" />
+            android:hint="Email" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
