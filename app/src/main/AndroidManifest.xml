@@ -12,6 +12,10 @@
         android:theme="@style/Theme.YGC"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="@string/title_activity_main" />
+        <activity
             android:name=".passReset"
             android:exported="false" />
         <activity
