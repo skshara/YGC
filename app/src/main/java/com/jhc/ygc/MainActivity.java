@@ -2,6 +2,9 @@ package com.jhc.ygc;
 
 import android.os.Bundle;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +16,13 @@ import androidx.navigation.ui.NavigationUI;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.jhc.ygc.databinding.ActivityMain2Binding;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     Button signOut;
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     //}
     //}
     private ActivityMain2Binding binding;
+    private ImageSlider imageSlider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         signOut = findViewById(R.id.signOut);
         //fAuth.getInstance();
+        imageSlider= findViewById(R.id.image_slider);
+        ArrayList<SlideModel> slideModels= new ArrayList<>(); // Create image list
+        slideModels.add(new SlideModel("", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("", ScaleTypes.FIT));
+        slideModels.add(new SlideModel("", ScaleTypes.FIT));
+
+        imageSlider.setImageList(slideModels,ScaleTypes.FIT);
+
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
