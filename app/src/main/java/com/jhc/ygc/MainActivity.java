@@ -2,9 +2,7 @@ package com.jhc.ygc;
 
 import android.os.Bundle;
 
-import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.models.SlideModel;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,14 +15,9 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.jhc.ygc.databinding.ActivityMain2Binding;
 
 import java.util.ArrayList;
@@ -32,21 +25,22 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     Button signOut;
     FirebaseAuth fAuth;
-    FirebaseUser fUser;
-    DataSnapshot dataSnapshot;
+    //FirebaseUser fUser;
+    //DataSnapshot dataSnapshot;
 
-    protected void onStart() {
-     super.onStart();
-        String grade = getGrade();
-         if(grade==null) {
-         // Go to regisrer screen
-         fAuth.getInstance().signOut();
-         Toast.makeText(MainActivity.this, "Google sign up is not allowed. First Sign up with email", Toast.LENGTH_SHORT).show();
-         startActivity(new Intent(getApplicationContext(),login.class));
-         finish();
-            } }
+    //protected void onStart() {
+    // super.onStart();
+    // String grade = getGrade();
+    // if(grade==null) {
+    // Go to register for now
+    //fAuth.getInstance().signOut();
+    //Toast.makeText(MainActivity.this, "Google sign up is not allowed. First Sign up with email", Toast.LENGTH_SHORT).show();
+    //startActivity(new Intent(getApplicationContext(),login.class));
+    //finish();
+    //}
+    //}
     private ActivityMain2Binding binding;
-    private ImageSlider imageSlider;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +50,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setContentView(R.layout.activity_main2);
         signOut = findViewById(R.id.signOut);
-        fAuth.getInstance();
-        imageSlider= findViewById(R.id.image_slider);
-        ArrayList<SlideModel> slideModels= new ArrayList<>(); // Create image list
-        slideModels.add(new SlideModel("", ScaleTypes.FIT));
-        slideModels.add(new SlideModel("", ScaleTypes.FIT));
-        slideModels.add(new SlideModel("", ScaleTypes.FIT));
-        slideModels.add(new SlideModel("", ScaleTypes.FIT));
+        //fAuth.getInstance();
 
-        imageSlider.setImageList(slideModels,ScaleTypes.FIT);
 
 
         signOut.setOnClickListener(new View.OnClickListener() {
@@ -85,11 +72,5 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
-    private String getGrade() {
-        fUser = fAuth.getInstance().getCurrentUser();
-        String UserID =fUser.getUid().toString();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        String gradeFromDB = dataSnapshot.child(UserID).child("grade").getValue(String.class);
-        return gradeFromDB;
-    }
+
 }
