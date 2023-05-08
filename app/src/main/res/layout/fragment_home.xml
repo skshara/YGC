@@ -51,6 +51,8 @@
             android:layout_height="140dp"
             android:background="@drawable/sml_bk"
             android:src="@drawable/video"
+            android:contentDescription="Videos"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/e_book"
             app:layout_constraintHorizontal_bias="0.372"
@@ -64,6 +66,8 @@
             android:layout_height="140dp"
             android:background="@drawable/sml_bk"
             android:src="@drawable/e_bk"
+            android:contentDescription="E book"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.834"
@@ -77,6 +81,8 @@
             android:layout_height="140dp"
             android:background="@drawable/sml_bk"
             android:src="@drawable/audio_bk"
+            android:contentDescription="Audio books"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.831"
@@ -90,6 +96,8 @@
             android:layout_height="140dp"
             android:background="@drawable/sml_bk"
             android:src="@drawable/homework"
+            android:contentDescription="quiz"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/Audio"
             app:layout_constraintHorizontal_bias="0.384"
@@ -97,10 +105,6 @@
             app:layout_constraintTop_toBottomOf="@+id/video"
             app:layout_constraintVertical_bias="0.25" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 
 </LinearLayout>

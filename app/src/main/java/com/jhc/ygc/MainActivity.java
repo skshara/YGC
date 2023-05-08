@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setContentView(R.layout.activity_main2);
         signOut = findViewById(R.id.signOut);
-        //fAuth.getInstance();
+       //fAuth.getInstance();
 
 
 
