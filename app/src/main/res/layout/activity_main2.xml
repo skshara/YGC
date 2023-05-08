@@ -34,14 +34,18 @@
         app:navGraph="@navigation/mobile_navigation2" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:contentDescription="Sign Out"
         android:id="@+id/signOut"
-        android:layout_width="70dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="62dp"
         android:clickable="true"
-        app:srcCompat="@drawable/glelogo"
-        tools:layout_editor_absoluteX="170dp"
-        tools:layout_editor_absoluteY="516dp" />
+        android:contentDescription="Sign Out"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nav_host_fragment_activity_main2"
+        app:layout_constraintVertical_bias="0.013"
+        app:srcCompat="@drawable/glelogo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
