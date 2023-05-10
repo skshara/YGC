@@ -48,7 +48,7 @@ public class login extends AppCompatActivity {
 
         FirebaseUser user = fAuth.getCurrentUser();
         if(user!=null){
-            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+           Intent intent = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);
         }
     }
@@ -195,8 +195,8 @@ public class login extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = fAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                            startActivity(intent);
+                            //Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                           // startActivity(intent);
 
 
                         } else {

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -34,77 +33,91 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:text="Click any resources from the following"
         android:textAlignment="center"
-        android:text="Click any resources from the following" />
+        android:textColor="#000000" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/cont_fl"
         android:layout_width="match_parent"
-        android:layout_height="341dp"
+        android:layout_height="493dp"
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
-        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/in_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/video"
+                android:layout_width="160dp"
+                android:layout_height="165dp"
+                android:background="@drawable/sml_bk"
+                android:contentDescription="Videos"
+
+                android:src="@drawable/video"
+
+                />
+
+            <ImageButton
+                android:id="@+id/e_book"
+                android:layout_width="165dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/sml_bk"
+                android:contentDescription="E book"
+                android:src="@drawable/e_bk"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cont_two"
+            android:layout_width="wrap_content"
+            android:layout_height="175dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/Audio"
+                android:layout_width="160dp"
+                android:layout_height="165dp"
+                android:background="@drawable/sml_bk"
+                android:contentDescription="Audio books"
+                android:src="@drawable/audio_bk"
 
 
-        <ImageButton
-            android:id="@+id/video"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:background="@drawable/sml_bk"
-            android:src="@drawable/video"
-            android:contentDescription="Videos"
+                />
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/e_book"
-            app:layout_constraintHorizontal_bias="0.372"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.225" />
+            <ImageButton
+                android:id="@+id/quiz"
+                android:layout_width="160dp"
+                android:layout_height="165dp"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/sml_bk"
+                android:contentDescription="quiz"
+                android:src="@drawable/homework"
 
-        <ImageButton
-            android:id="@+id/e_book"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:background="@drawable/sml_bk"
-            android:src="@drawable/e_bk"
-            android:contentDescription="E book"
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.834"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.219" />
+                />
 
-        <ImageButton
-            android:id="@+id/Audio"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:background="@drawable/sml_bk"
-            android:src="@drawable/audio_bk"
-            android:contentDescription="Audio books"
+        </LinearLayout>
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.831"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/e_book"
-            app:layout_constraintVertical_bias="0.349" />
 
-        <ImageButton
-            android:id="@+id/quiz"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:background="@drawable/sml_bk"
-            android:src="@drawable/homework"
-            android:contentDescription="quiz"
+    </LinearLayout>
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/Audio"
-            app:layout_constraintHorizontal_bias="0.384"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/video"
-            app:layout_constraintVertical_bias="0.25" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="&quot;Get your Education Developed&quot;"
+        android:textAlignment="center"
+        android:textSize="24sp" />
 
 
 </LinearLayout>
