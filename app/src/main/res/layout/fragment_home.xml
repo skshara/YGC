@@ -11,7 +11,7 @@
     >
 
     <TextView
-        android:id="@+id/textHome"
+        android:id="@+id/textofHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Welcome"
@@ -40,7 +40,7 @@
     <LinearLayout
         android:id="@+id/cont_fl"
         android:layout_width="match_parent"
-        android:layout_height="493dp"
+        android:layout_height="411dp"
         android:layout_gravity="center"
         android:orientation="vertical">
 
@@ -67,7 +67,7 @@
                 android:id="@+id/e_book"
                 android:layout_width="165dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="25dp"
                 android:background="@drawable/sml_bk"
                 android:contentDescription="E book"
                 android:src="@drawable/e_bk"
@@ -78,9 +78,9 @@
         <LinearLayout
             android:id="@+id/cont_two"
             android:layout_width="wrap_content"
-            android:layout_height="175dp"
+            android:layout_height="164dp"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <ImageButton
@@ -98,7 +98,7 @@
                 android:id="@+id/quiz"
                 android:layout_width="160dp"
                 android:layout_height="165dp"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="25dp"
                 android:background="@drawable/sml_bk"
                 android:contentDescription="quiz"
                 android:src="@drawable/homework"
@@ -112,12 +112,19 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textpalin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="&quot;Get your Education Developed&quot;"
         android:textAlignment="center"
         android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone" />
 
 
 </LinearLayout>
