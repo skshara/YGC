@@ -155,6 +155,7 @@ public class login extends AppCompatActivity {
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        progressBar.setVisibility(View.VISIBLE);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
@@ -181,6 +182,7 @@ public class login extends AppCompatActivity {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -195,13 +197,14 @@ public class login extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = fAuth.getCurrentUser();
-                            //Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                           // startActivity(intent);
+                            progressBar.setVisibility(View.GONE);
+                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(intent);
 
 
                         } else {
                             Toast.makeText(login.this, "Sorry login failed.", Toast.LENGTH_SHORT).show();
-
+                            progressBar.setVisibility(View.GONE);
 
                         }
 
