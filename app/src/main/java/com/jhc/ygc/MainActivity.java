@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -25,7 +26,6 @@ import com.jhc.ygc.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    Button logOut;
     FirebaseAuth fAuth;
 private ActivityMainBinding binding;
 
@@ -56,17 +56,6 @@ private ActivityMainBinding binding;
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-        logOut = findViewById(R.id.logOut);
-
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(),login.class));
-                finish();
-            }
-        });
     }
 
     @Override
@@ -81,5 +70,22 @@ private ActivityMainBinding binding;
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.log_out) {
+            fAuth.getInstance().signOut();
+            startActivity(new Intent(getApplicationContext(),login.class));
+            finish();
+            return true;
+        } else if (id == R.id.action_settings) {
+            startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
