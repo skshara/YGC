@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -24,6 +25,7 @@ import com.jhc.ygc.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private AppBarConfiguration mAppBarConfiguration;
     Button logOut;
     FirebaseAuth fAuth;
@@ -34,6 +36,7 @@ private ActivityMainBinding binding;
         super.onCreate(savedInstanceState);
 
      fAuth.getInstance();
+
      binding = ActivityMainBinding.inflate(getLayoutInflater());
      setContentView(binding.getRoot());
 

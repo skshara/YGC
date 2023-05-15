@@ -7,9 +7,9 @@
         />
     <item
         android:id="@+id/log_out"
-        android:icon="@drawable/baseline_logout_24"
+        
         android:title="Logout"
         android:orderInCategory="100"
-        app:showAsAction="never"
+
         />
 </menu>

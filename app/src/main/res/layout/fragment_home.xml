@@ -57,11 +57,12 @@
                 android:layout_width="160dp"
                 android:layout_height="165dp"
                 android:background="@drawable/sml_bk"
+                android:clickable="true"
+
                 android:contentDescription="Videos"
 
-                android:src="@drawable/video"
-
-                />
+                android:longClickable="false"
+                android:src="@drawable/video" />
 
             <ImageButton
                 android:id="@+id/e_book"
