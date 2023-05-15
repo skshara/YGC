@@ -86,6 +86,13 @@ public class register extends AppCompatActivity {
                     progressBar2.setVisibility(View.GONE);
                     return;
                 }
+
+                if(TextUtils.isEmpty(fullname)) {
+                    mEmail.setError("Name is required");
+                    progressBar2.setVisibility(View.GONE);
+                    return;
+                }
+
                 if(TextUtils.isEmpty(password)) {
                     mPassword.setError("Password is required");
                     progressBar2.setVisibility(View.GONE);
@@ -95,6 +102,13 @@ public class register extends AppCompatActivity {
                 if(TextUtils.isEmpty(grade)) {
                     mGrade.setError("Type your grade");
                     progressBar2.setVisibility(View.GONE);
+                    return;
+                }
+
+                if(TextUtils.isEmpty(password2)) {
+                    mGrade.setError("Type your password again");
+                    progressBar2.setVisibility(View.GONE);
+                    return;
                 }
 
                 if(!password.equals(password2)) {
