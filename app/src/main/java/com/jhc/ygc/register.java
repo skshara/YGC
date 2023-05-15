@@ -88,7 +88,7 @@ public class register extends AppCompatActivity {
                 }
 
                 if(TextUtils.isEmpty(fullname)) {
-                    mEmail.setError("Name is required");
+                    mFullName.setError("Name is required");
                     progressBar2.setVisibility(View.GONE);
                     return;
                 }
@@ -106,7 +106,7 @@ public class register extends AppCompatActivity {
                 }
 
                 if(TextUtils.isEmpty(password2)) {
-                    mGrade.setError("Type your password again");
+                    mPassword.setError("Type your password again");
                     progressBar2.setVisibility(View.GONE);
                     return;
                 }
