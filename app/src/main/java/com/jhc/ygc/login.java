@@ -198,6 +198,7 @@ public class login extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = fAuth.getCurrentUser();
                             progressBar.setVisibility(View.GONE);
+                            Toast.makeText(login.this, "Login Success", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                             startActivity(intent);
 
