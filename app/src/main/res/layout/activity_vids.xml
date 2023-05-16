@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".vids"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:background="@drawable/rectangle_2">
     <TextView
         android:layout_width="match_parent"
@@ -18,10 +18,14 @@
     </TextView>
 
     <WebView
+        android:id="@+id/weblay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/weblay"/>
-
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:padding="20dp" />
 
 
 </LinearLayout>
