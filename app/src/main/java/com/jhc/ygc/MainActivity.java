@@ -27,9 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private AppBarConfiguration mAppBarConfiguration;
-    Button logOut;
     FirebaseAuth fAuth;
-private ActivityMainBinding binding;
+    ImageButton video;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +60,12 @@ private ActivityMainBinding binding;
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        logOut = findViewById(R.id.logOut);
+        video = (ImageButton)findViewById(R.id.video);
 
-        logOut.setOnClickListener(new View.OnClickListener() {
+        video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(),login.class));
-                finish();
+                startActivity(new Intent(getApplicationContext(),vids.class));
             }
         });
     }
@@ -84,5 +82,19 @@ private ActivityMainBinding binding;
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.log_out) {
+            fAuth.getInstance().signOut();
+            startActivity(new Intent(getApplicationContext(),login.class));
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
