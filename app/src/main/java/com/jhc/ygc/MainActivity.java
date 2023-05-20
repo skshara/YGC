@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     FirebaseAuth fAuth;
-    ImageButton video;
+    ImageButton video,quiz,eBook,aBook;
     private ActivityMainBinding binding;
 
     @Override
@@ -61,11 +61,36 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         video = (ImageButton)findViewById(R.id.video);
+        eBook = (ImageButton)findViewById(R.id.e_book);
+        aBook = (ImageButton)findViewById(R.id.Audio);
+        quiz = (ImageButton)findViewById(R.id.quiz);
+
 
         video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),vids.class));
+            }
+        });
+
+        eBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),eBookActivity.class));
+            }
+        });
+
+        aBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),AudiobookActivity.class));
+            }
+        });
+
+        quiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),QuizActivity.class));
             }
         });
     }
