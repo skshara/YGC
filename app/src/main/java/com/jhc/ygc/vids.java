@@ -2,7 +2,10 @@ package com.jhc.ygc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.pm.ActivityInfo;
+import android.net.http.SslError;
 import android.os.Bundle;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -18,4 +21,11 @@ private WebView webView;
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
     }
+
+    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); // Landscape
+        handler.proceed(); // Ignore SSL certificate errors
+    }
+
 }
+
