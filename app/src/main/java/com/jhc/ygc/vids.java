@@ -14,7 +14,7 @@ private WebView webView;
         setContentView(R.layout.activity_vids);
         webView = (WebView) findViewById(R.id.weblay);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://youtube.com");
+        webView.loadUrl("https://app.lumi.education/run/zZDuba");
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
     }
