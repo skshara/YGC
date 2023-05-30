@@ -2,53 +2,89 @@ package com.jhc.ygc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Build;
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import com.jhc.ygc.R;
-
-import java.util.HashMap;
-import java.util.Map;
+import android.widget.Toast;
 
 public class VideoActivity extends AppCompatActivity {
-    private WebView webView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vids);
 
-        webView = findViewById(R.id.weblay);
-        webView.setWebViewClient(new CustomWebViewClient());
-
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        webSettings.setAllowFileAccessFromFileURLs(true);
-        webSettings.setAllowUniversalAccessFromFileURLs(true);
-
-        webView.loadUrl("https://app.lumi.education/run/zZDuba");
+        loadUrl("https://app.lumi.education/run/zZDuba");
     }
 
-    private class CustomWebViewClient extends WebViewClient {
-        @Override
-        public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                String requestUrl = request.getUrl().toString();
-                if (requestUrl.startsWith("https://lumieducation.onfastspring.com")) {
-                    Map<String, String> headers = new HashMap<>();
-                    headers.put("Access-Control-Allow-Origin", "*");
-                    headers.put("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-                    headers.put("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With");
-                    return new WebResourceResponse(null, null, 200, "OK", headers, null);
-                }
-            }
-            return super.shouldInterceptRequest(view, request);
+    @Override
+    public void onBackPressed() {
+        WebView view = (WebView)findViewById(R.id.weblay);
+        if(view.canGoBack()) {
+            view.goBack();
+        } else {
+            super.onBackPressed();
         }
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    public void loadUrl(String url)
+    {
+        final ProgressDialog dialog = ProgressDialog.show(VideoActivity.this, "Loading ...",  getString(R.string.loading), true);
+        final WebView myWebView = (WebView) findViewById(R.id.weblay);
+        myWebView.setVerticalScrollBarEnabled(false);
+        myWebView.setHorizontalScrollBarEnabled(false);
+        WebSettings webSettings = myWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setDomStorageEnabled(true);
+
+
+        myWebView.setWebViewClient(new WebViewClient()
+        {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url)
+            {
+                if(url.contains("youtube")) {
+                    view.goBack();
+                }
+                if(url.startsWith("https://m.youtube.com/")|| url.startsWith("https://www.youtube.com/") || url.startsWith("https://youtube.com/")) {
+                    view.goBack();
+                }
+                //Toast.makeText(VideoActivity.this, url, Toast.LENGTH_SHORT).show(); Debugging purposes
+                if (url.endsWith(".mp4"))
+                {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.parse(url), "video/mp4");
+                    view.getContext().startActivity(intent);
+                }
+                else
+                {
+                    view.loadUrl(url);
+                }
+
+                return true;
+            }
+
+            public void onPageFinished(WebView view, String url)
+            {
+                //Toast.makeText(myActivity.this, "Oh no!", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
+            {
+                Toast.makeText(VideoActivity.this, description, Toast.LENGTH_SHORT).show();
+                String summary = "<html><body><strong>" + getString(R.string.lost_connection) + "</body></html>";
+                myWebView.loadData(summary, "text/html", "utf-8");
+            }
+
+        }); //End WebViewClient
+
+        myWebView.loadUrl(url);
     }
 }
