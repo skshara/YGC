@@ -18,12 +18,12 @@ public class VideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vids);
 
-        loadUrl("https://app.lumi.education/run/zZDuba");
+        loadUrl("file:///android_asset/interactive-video.html");
     }
 
     @Override
     public void onBackPressed() {
-        WebView view = (WebView)findViewById(R.id.weblay);
+        WebView view = findViewById(R.id.weblay);
         if(view.canGoBack()) {
             view.goBack();
         } else {
@@ -35,7 +35,7 @@ public class VideoActivity extends AppCompatActivity {
     public void loadUrl(String url)
     {
         final ProgressDialog dialog = ProgressDialog.show(VideoActivity.this, "Loading ...",  getString(R.string.loading), true);
-        final WebView myWebView = (WebView) findViewById(R.id.weblay);
+        final WebView myWebView = findViewById(R.id.weblay);
         myWebView.setVerticalScrollBarEnabled(false);
         myWebView.setHorizontalScrollBarEnabled(false);
         WebSettings webSettings = myWebView.getSettings();
