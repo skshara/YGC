@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.log_out) {
-            fAuth.signOut();
+            fAuth.getInstance().signOut();
             startActivity(new Intent(getApplicationContext(),login.class));
             finish();
             return true;
