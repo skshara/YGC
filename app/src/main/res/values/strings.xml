@@ -28,7 +28,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_about_us">About us</string>
     <string name="menu_profile">Profile</string>
-    <string name="lost_connection" />
-    <string name="loading" />
+    <string name="lost_connection">Internet connection lost</string>
+    <string name="loading">Loading...</string>
 
 </resources>
