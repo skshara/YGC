@@ -2,14 +2,20 @@ package com.jhc.ygc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -18,13 +24,26 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.jhc.ygc.databinding.ActivityMainBinding;
+
+import org.w3c.dom.Text;
+
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private AppBarConfiguration mAppBarConfiguration;
     FirebaseAuth fAuth;
+    FirebaseUser fUser;
+    String fUserUid;
+    TextView mEmail,mFname,mGrade,UserID;
+    FirebaseFirestore db;
+    DocumentReference userDocRef;
     ImageButton video,quiz,eBook,aBook;
     private ActivityMainBinding binding;
 
@@ -61,7 +80,47 @@ public class MainActivity extends AppCompatActivity {
         eBook = (ImageButton)findViewById(R.id.e_book);
         aBook = (ImageButton)findViewById(R.id.Audio);
         quiz = (ImageButton)findViewById(R.id.quiz);
+        mEmail = binding.navView.getHeaderView(0).findViewById(R.id.textView4);
+        mFname = binding.navView.getHeaderView(0).findViewById(R.id.textView2);
+        mGrade = binding.navView.getHeaderView(0).findViewById(R.id.detail1);
+        UserID = binding.navView.getHeaderView(0).findViewById(R.id.detail3);
+        fUser = fAuth.getInstance().getCurrentUser();
+        fUserUid = fUser.getUid();
+        db = FirebaseFirestore.getInstance();
+        userDocRef = db.collection("user").document(fUserUid);
 
+        if (fUser != null) {
+            if (fUser != null) {
+                userDocRef.get().addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        Map<String, Object> userData = documentSnapshot.getData();
+                        String fname = (String) userData.get("fname");
+                        String email = (String) userData.get("email");
+                        String grade = (String) userData.get("grade");
+                        // Access the user data and do whatever you need with it
+                        mEmail.setText(email);
+                        mFname.setText(fname);
+                        mGrade.setText(grade);
+                        UserID.setText(fUserUid);
+                    } else {
+                        // The document doesn't exist
+                        Toast.makeText(getApplicationContext(), "The user information doesn't exist", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(e -> {
+                    // Failed with error code e
+                    Toast.makeText(getApplicationContext(), "Error: " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Log.e("FirestoreError", "Error retrieving user document: " + e.getMessage());
+                });
+            } else {
+                startActivity(new Intent(getApplicationContext(), login.class));
+                finish();
+            }
+        } else {
+            // Handle the case where the user is not authenticated
+            // For example, redirect to the login screen
+            startActivity(new Intent(getApplicationContext(), login.class));
+            finish();
+        }
 
         video.setOnClickListener(new View.OnClickListener() {
             @Override
