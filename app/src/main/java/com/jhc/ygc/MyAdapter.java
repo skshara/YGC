@@ -22,7 +22,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search, parent, false);
         return new ViewHolder(view);
     }
 
@@ -55,7 +55,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.textView5);
+            nameTextView = itemView.findViewById(R.id.text_name);
         }
     }
 
@@ -67,18 +67,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         switch (type) {
             case 'v':
                 // Video
-                return;
+                // Add your video action here
+                break;
             case 'a':
                 // Audio
-                return;
+                // Add your audio action here
+                break;
             case 'q':
-                // quiz
-                return;
+                // Quiz
+                // Add your quiz action here
+                break;
             case 'e':
-                // ebook
-                return;
+                // Ebook
+                // Add your ebook action here
+                break;
             default:
-                //Error
+                // Error or fallback action
+                break;
         }
     }
 }

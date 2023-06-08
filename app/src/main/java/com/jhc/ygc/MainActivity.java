@@ -34,8 +34,10 @@ import com.jhc.ygc.databinding.ActivityMainBinding;
 
 import org.w3c.dom.Text;
 
+import com.jhc.ygc.Database;
 import java.util.ArrayList;
 import java.util.List;
+import com.jhc.ygc.SearchItems;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
