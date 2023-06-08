@@ -36,7 +36,8 @@
                         android:background="@drawable/profilebk"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent">
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
                             android:id="@+id/textView4"
@@ -85,7 +86,10 @@
                             android:textAlignment="center"
                             android:textSize="20sp"
                             android:visibility="gone"
-                            tools:layout_editor_absoluteX="8dp"
+                            app:layout_constraintBottom_toTopOf="parent"
+                            app:layout_constraintEnd_toStartOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
                             tools:visibility="gone" />
 
                         <ImageView
@@ -217,8 +221,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="32dp"
-                                android:text="Address:"
                                 android:fontFamily="@font/electrolize"
+                                android:text="Address:"
 
                                 android:textColor="#000000"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -230,8 +234,8 @@
                                 android:id="@+id/detail2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text=""
                                 android:fontFamily="@font/electrolize"
+                                android:text=""
 
                                 android:textColor="#000000"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -246,8 +250,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="32dp"
-                                android:text="User ID:"
                                 android:fontFamily="@font/electrolize"
+                                android:text="User ID:"
 
                                 android:textColor="#000000"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -259,9 +263,9 @@
                                 android:id="@+id/detail3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/electrolize"
                                 android:text=""
                                 android:textColor="#000000"
-                                android:fontFamily="@font/electrolize"
 
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -275,9 +279,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="32dp"
+                                android:fontFamily="@font/electrolize"
                                 android:text=""
                                 android:textColor="#000000"
-                                android:fontFamily="@font/electrolize"
 
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -288,9 +292,9 @@
                                 android:id="@+id/detail4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/electrolize"
                                 android:text=""
                                 android:textColor="#000000"
-                                android:fontFamily="@font/electrolize"
 
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
