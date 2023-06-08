@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.jhc.ygc.R;
 import com.jhc.ygc.databinding.FragmentGalleryBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.Map;
 
@@ -28,6 +30,7 @@ private FragmentGalleryBinding binding;
     FirebaseUser fUser;
     String fUserUid;
     TextView mEmail,mFname,mGrade,UserID;
+    ImageView imageView;
     FirebaseFirestore db;
     DocumentReference userDocRef;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ private FragmentGalleryBinding binding;
         mFname = root.findViewById(R.id.textView3);
         mGrade = root.findViewById(R.id.detail1);
         UserID = root.findViewById(R.id.detail3);
+        imageView = root.findViewById(R.id.imageView4);
         fAuth = FirebaseAuth.getInstance();
         fUser = fAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
@@ -63,11 +67,17 @@ private FragmentGalleryBinding binding;
                         mGrade.setText(grade);
                         UserID.setText(fUserUid);
                     } else {
-                        Log.d("FireStoreError","UserData is null");
+                        Log.d("FireStoreError","UserData is null, Checking google");
+                        mEmail.setText(fUser.getEmail());
+                        mFname.setText(fUser.getDisplayName());
+                        imageView.setImageURI(fUser.getPhotoUrl());
                     }
                 } else {
                     // The document doesn't exist
-                    Log.d("FirestoreError", "User document doesn't exist");
+                    Log.d("FirestoreError", "User document doesn't exist, checking google");
+                    mEmail.setText(fUser.getEmail());
+                    mFname.setText(fUser.getDisplayName());
+                    Picasso.get().load(fUser.getPhotoUrl()).into(imageView);
                 }
             }).addOnFailureListener(e -> {
                 // Failed with error code e
