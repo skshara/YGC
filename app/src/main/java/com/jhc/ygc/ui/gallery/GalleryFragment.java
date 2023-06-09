@@ -69,15 +69,39 @@ private FragmentGalleryBinding binding;
                     } else {
                         Log.d("FireStoreError","UserData is null, Checking google");
                         mEmail.setText(fUser.getEmail());
-                        mFname.setText(fUser.getDisplayName());
-                        imageView.setImageURI(fUser.getPhotoUrl());
+                        if(fUser.getDisplayName() != null || fUser.getDisplayName() != "") {
+                            mFname.setText(fUser.getDisplayName());
+                        } else {
+                            String newName = fUser.getEmail();
+                            if(newName.contains("@gmail.com")) {
+                                newName.replace("@gmail.com", "");
+                                mFname.setText(newName);
+                            } else {
+                                mFname.setText("User");
+                            }
+                        }
+                        if(fUser.getPhotoUrl() != null) {
+                            Picasso.get().load(fUser.getPhotoUrl()).into(imageView);
+                        }
                     }
                 } else {
                     // The document doesn't exist
                     Log.d("FirestoreError", "User document doesn't exist, checking google");
                     mEmail.setText(fUser.getEmail());
-                    mFname.setText(fUser.getDisplayName());
-                    Picasso.get().load(fUser.getPhotoUrl()).into(imageView);
+                    if(fUser.getDisplayName() != null || fUser.getDisplayName() != "") {
+                        mFname.setText(fUser.getDisplayName());
+                    } else {
+                        String newName = fUser.getEmail();
+                        if(newName.contains("@gmail.com")) {
+                            newName.replace("@gmail.com", "");
+                            mFname.setText(newName);
+                        } else {
+                            mFname.setText("User");
+                        }
+                    }
+                    if(fUser.getPhotoUrl() != null) {
+                        Picasso.get().load(fUser.getPhotoUrl()).into(imageView);
+                    }
                 }
             }).addOnFailureListener(e -> {
                 // Failed with error code e

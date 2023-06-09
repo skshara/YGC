@@ -23,6 +23,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -89,8 +90,11 @@ public class MainActivity extends AppCompatActivity {
         database = new Database();
         searchView = findViewById(R.id.search_bar);
         recycler = findViewById(R.id.recycler);
+        recycler.setLayoutManager(new LinearLayoutManager(this));
 
         searchResults = new ArrayList<>();
+        adapter = new MyAdapter(searchResults);
+        recycler.setAdapter(adapter);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -166,7 +170,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI(List<SearchItems> results,RecyclerView recyclerView) {
         // Update your UI to display the search results
-        adapter = new MyAdapter(results);
-        recyclerView.setAdapter(adapter);
+        searchResults.clear();
+        searchResults.addAll(results);
+        adapter.notifyDataSetChanged();
     }
 }
