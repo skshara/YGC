@@ -138,10 +138,10 @@ android:textSize="25dp"
 
     <Button
         android:id="@+id/back"
-        android:layout_width="102dp"
+        android:layout_width="195dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="login" />
+        android:text="Back to login" />
 
     <ProgressBar
         android:id="@+id/progressBar2"
