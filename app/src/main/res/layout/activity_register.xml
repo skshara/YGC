@@ -122,21 +122,26 @@
         android:layout_marginTop="30dp"
         >
 
-        <Button
-            android:id="@+id/back"
-            android:layout_width="120dp"
-            android:layout_height="60dp"
-            android:text="login" />
-
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/regbtn"
-            android:layout_width="120dp"
-            android:layout_height="60dp"
+            android:layout_width="153dp"
+            android:layout_height="74dp"
             android:layout_gravity="right"
+            android:background="@drawable/login_btn"
+            android:textColor="@color/primary"
+android:textSize="25dp"
+            android:fontFamily="casual"
             android:layout_marginLeft="112dp"
             android:text="Register" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="195dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Back to login" />
 
     <ProgressBar
         android:id="@+id/progressBar2"
