@@ -61,6 +61,9 @@ private FragmentGalleryBinding binding;
                         String fname = (String) userData.get("fname");
                         String email = (String) userData.get("email");
                         String grade = (String) userData.get("grade");
+                        if(fUser.getPhotoUrl() != null) {
+                            Picasso.get().load(fUser.getPhotoUrl()).into(imageView);
+                        }
                         // Access the user data and do whatever you need with it
                         mEmail.setText(email);
                         mFname.setText(fname);

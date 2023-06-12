@@ -2,55 +2,28 @@ package com.jhc.ygc;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageButton;
-import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.jhc.ygc.databinding.ActivityMainBinding;
-
-import org.w3c.dom.Text;
-
-import com.jhc.ygc.Database;
-import java.util.ArrayList;
-import java.util.List;
-import com.jhc.ygc.SearchItems;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private AppBarConfiguration mAppBarConfiguration;
     FirebaseAuth fAuth;
-    SearchView searchView;
-    private Database database;
-    private List<SearchItems> searchResults;
-    RecyclerView recycler;
-    MyAdapter adapter;
     ImageButton video,quiz,eBook,aBook;
     private ActivityMainBinding binding;
 
@@ -80,29 +53,6 @@ public class MainActivity extends AppCompatActivity {
         eBook = (ImageButton)findViewById(R.id.e_book);
         aBook = (ImageButton)findViewById(R.id.Audio);
         quiz = (ImageButton)findViewById(R.id.quiz);
-        database = new Database();
-        searchView = findViewById(R.id.search_bar);
-        recycler = findViewById(R.id.recycler);
-        recycler.setLayoutManager(new LinearLayoutManager(this));
-
-        searchResults = new ArrayList<>();
-        adapter = new MyAdapter(searchResults);
-        recycler.setAdapter(adapter);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                searchResults = database.searchObjects(newText);
-                // Update your UI to display the search results
-                updateUI(searchResults,recycler);
-                return true;
-            }
-        });
 
         video.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,12 +109,5 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void updateUI(List<SearchItems> results,RecyclerView recyclerView) {
-        // Update your UI to display the search results
-        searchResults.clear();
-        searchResults.addAll(results);
-        adapter.notifyDataSetChanged();
     }
 }
