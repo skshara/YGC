@@ -194,7 +194,7 @@ volumeSlider.addEventListener('input',() => {
     music.volume = volumeSlider.value; 
 });
 
-queue.forEach((item,i) => { 
+queue.forEach((item,i) => {
     item.addEventListener('click',() => {
         setMusic(i);
         playBtn.click();
