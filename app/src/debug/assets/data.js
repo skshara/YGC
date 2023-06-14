@@ -1,14 +1,14 @@
 let songs = [
     {
-        name: 'song 1',
-        path: 'assets/musics/Song 1.mp3',
-        artist: 'artist 1',
+        name: 'Tamilmoli valthu',
+        path: 'assets/musics/y2mate.com - தமழமழ வழதத_Tamilmoli_valthu.mp3',
+        artist: 'e-Carnatic tamil',
         cover: 'assets/images/cover 1.png'
     },
     {
-        name: 'song 2',
-        path: 'assets/musics/Song 2.mp3',
-        artist: 'artist 2',
+        name: 'Meela adimai',
+        path: 'assets/musics/y2mate.com - தவரம மள அடம.mp3',
+        artist: 'e-Carnatic tamil',
         cover: 'assets/images/cover 2.png'
     },
     {

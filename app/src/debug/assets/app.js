@@ -162,6 +162,7 @@ forwardBtn.addEventListener('click', () => {
       currentMusic++;
     }
     setMusic(currentMusic);
+    playBtn.click();
   });
 
 // backward btn
