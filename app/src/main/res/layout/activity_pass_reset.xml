@@ -31,7 +31,7 @@
         android:id="@+id/rsttxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Provide Your E-Mail to reset your password"
+        android:text="Provide your E-Mail to reset your password"
         android:textAlignment="center"
         android:textSize="16sp" />
 
@@ -55,28 +55,31 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal"
-       android:padding="20dp"
-       >
-    <Button
 
-        android:id="@+id/reset"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="RESET"
-        android:layout_gravity="left"/>
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
 
-       <Button
-           android:id="@+id/back"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="right"
-           android:layout_marginLeft="130dp"
-           android:text="login" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reset"
+            android:layout_width="153dp"
+            android:layout_height="74dp"
+            android:layout_gravity="center"
+            android:background="@drawable/login_btn"
+            android:fontFamily="casual"
+            android:text="RESET"
+            android:textColor="@color/primary"
+            android:textSize="25dp" />
 
-   </LinearLayout>
+        <Button
+            android:id="@+id/back"
+            android:layout_width="195dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Back to login" />
+
+    </LinearLayout>
 
 </LinearLayout>

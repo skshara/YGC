@@ -69,8 +69,8 @@
 
                         <ImageView
                             android:id="@+id/imageView5"
-                            android:layout_width="425dp"
-                            android:layout_height="412dp"
+                            android:layout_width="425sp"
+                            android:layout_height="412sp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/circles"
                             app:layout_constraintBottom_toBottomOf="parent"
