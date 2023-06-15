@@ -26,6 +26,7 @@ public class VideoActivity extends AppCompatActivity {
         if(view.canGoBack()) {
             view.goBack();
         } else {
+            loadUrl("file:///android_asset/interactive-video.html");
             super.onBackPressed();
         }
     }

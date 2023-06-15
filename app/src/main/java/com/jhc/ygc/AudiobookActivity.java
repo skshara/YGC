@@ -26,6 +26,7 @@ public class AudiobookActivity extends AppCompatActivity {
         if(view.canGoBack()) {
             view.goBack();
         } else {
+            loadUrl("file:///android_asset/index.html");
             super.onBackPressed();
         }
     }
