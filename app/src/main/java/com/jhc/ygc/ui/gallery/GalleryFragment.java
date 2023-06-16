@@ -1,10 +1,12 @@
 package com.jhc.ygc.ui.gallery;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,8 +18,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.jhc.ygc.MainActivity;
 import com.jhc.ygc.R;
 import com.jhc.ygc.databinding.FragmentGalleryBinding;
+import com.jhc.ygc.edit_info;
 import com.squareup.picasso.Picasso;
 
 import java.util.Map;
@@ -30,6 +34,7 @@ private FragmentGalleryBinding binding;
     FirebaseUser fUser;
     String fUserUid;
     TextView mEmail,mFname,mGrade,UserID;
+    Button editBtn;
     ImageView imageView;
     FirebaseFirestore db;
     DocumentReference userDocRef;
@@ -46,6 +51,7 @@ private FragmentGalleryBinding binding;
         mGrade = root.findViewById(R.id.detail1);
         UserID = root.findViewById(R.id.detail3);
         imageView = root.findViewById(R.id.imageView4);
+        editBtn = root.findViewById(R.id.back);
         fAuth = FirebaseAuth.getInstance();
         fUser = fAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
@@ -111,6 +117,13 @@ private FragmentGalleryBinding binding;
                 Log.d("FirestoreError", "Error retrieving user document: " + e.getMessage());
             });
         }
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), edit_info.class);
+                startActivity(intent);
+            }
+        });
         galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }

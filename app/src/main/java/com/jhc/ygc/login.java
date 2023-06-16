@@ -51,6 +51,7 @@ public class login extends AppCompatActivity {
         if(user!=null){
            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
