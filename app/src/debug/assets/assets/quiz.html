@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <style>
+    body {
+      text-align: center;
+      background-color: #f8f8f8;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 36px;
+      color: #333;
+      margin-top: 40px;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      color: #333;
+      margin-top: 40px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    #units-list li a {
+      color: #333;
+      text-decoration: none;
+    }
+  </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+      function getUnits(grade, subject) {
+        var units = [];
+
+        if (grade === '6' && subject === 'maths') {
+          // Nothing
+        } else if (grade === '6' && subject === 'science') {
+          // Nothing
+        } else if (grade === '6' && subject === 'english') {
+          // Nothing
+        } else if (grade === '6' && subject === 'tamil') {
+          // Nothing
+        } else if (grade === '6' && subject === 'history') {
+          // Nothing
+        } else if (grade === '6' && subject === 'ict') {
+          // Nothing
+        } else if (grade === '7' && subject === 'maths') {
+          // Nothing
+        } else if (grade === '7' && subject === 'science') {
+          // Nothing
+        } else if (grade === '7' && subject === 'english') {
+          // Nothing
+        } else if (grade === '7' && subject === 'tamil') {
+          // Nothing
+        } else if (grade === '7' && subject === 'history') {
+          // Nothing
+        } else if (grade === '7' && subject === 'ict') {
+          // Nothing
+        } else if (grade === '8' && subject === 'maths') {
+          // Nothing
+        } else if (grade === '8' && subject === 'science') {
+          // Nothing
+        } else if (grade === '8' && subject === 'english') {
+          // Nothing
+        } else if (grade === '8' && subject === 'tamil') {
+          // Nothing
+        } else if (grade === '8' && subject === 'history') {
+          // Nothing
+        } else if (grade === '8' && subject === 'ict') {
+          // Nothing
+        } else if (grade === '9' && subject === 'maths') {
+          // Nothing
+        } else if (grade === '9' && subject === 'science') {
+          units = [
+            { name: 'Unit 1,2,3', link: '#' },
+            // Add more units for Grade 6 ICT
+          ];
+        } else if (grade === '9' && subject === 'english') {
+          // Nothing
+        } else if (grade === '9' && subject === 'tamil') {
+          // Nothing
+        } else if (grade === '9' && subject === 'history') {
+          // Nothing
+        } else if (grade === '9' && subject === 'ict') {
+          // Nothing
+        } else if (grade === '10' && subject === 'maths') {
+          // Nothing
+        } else if (grade === '10' && subject === 'science') {
+          // Nothing
+        } else if (grade === '10' && subject === 'english') {
+          // Nothing
+        } else if (grade === '10' && subject === 'tamil') {
+          // Nothing
+        } else if (grade === '10' && subject === 'history') {
+          // Nothing
+        } else if (grade === '10' && subject === 'ict') {
+          // Nothing
+        } else if (grade === '11' && subject === 'maths') {
+          // Nothing
+        } else if (grade === '11' && subject === 'science') {
+          // Nothing
+        } else if (grade === '11' && subject === 'english') {
+          // Nothing
+        } else if (grade === '11' && subject === 'tamil') {
+          // Nothing
+        } else if (grade === '11' && subject === 'history') {
+          // Nothing
+        } else if (grade === '11' && subject === 'ict') {
+          // Nothing
+        }
+        // Add more conditions for other grade and subject combinations
+
+        return units;
+      }
+
+      function renderUnits(units) {
+        var unitsList = $('#units-list');
+        unitsList.empty();
+
+        if (units.length === 0) {
+          unitsList.append('<li>No quizzes available for the selected grade and subject.</li>');
+        } else {
+          units.forEach(function(unit) {
+            unitsList.append('<li><a href="' + unit.link + '">' + unit.name + '</a></li>');
+          });
+        }
+      }
+
+      function populateFormAndSubmit(grade, subject) {
+      $('#grade').val(grade);
+      $('#subject').val(subject);
+      $('form').submit();
+    }
+
+    $('form').submit(function(event) {
+      event.preventDefault();
+      var grade = $('#grade').val();
+      var subject = $('#subject').val();
+      var units = getUnits(grade, subject);
+      renderUnits(units);
+    });
+
+    // Check for URL parameters and populate the form if they exist
+    var urlParams = new URLSearchParams(window.location.search);
+    var gradeParam = urlParams.get('grade');
+    var subjectParam = urlParams.get('subject');
+
+    if (gradeParam && subjectParam) {
+      populateFormAndSubmit(gradeParam, subjectParam);
+    }
+    });
+  </script>
+</head>
+<body>
+<h1>Quizzes</h1>
+<form>
+    <label for="grade">Grade:</label>
+    <select name="grade" id="grade">
+        <option value="6">Grade 6</option>
+        <option value="7">Grade 7</option>
+        <option value="8">Grade 8</option>
+        <option value="9">Grade 9</option>
+        <option value="10">Grade 10</option>
+        <option value="11">Grade 11</option>
+        <!-- Add more grade options here -->
+    </select>
+    <br>
+    <label for="subject">Subject:</label>
+    <select name="subject" id="subject">
+        <option value="maths">Maths</option>
+        <option value="science">Science</option>
+        <option value="english">English</option>
+        <option value="tamil">Tamil</option>
+        <option value="history">History</option>
+        <option value="ict">ICT</option>
+        <!-- Add more subject options here -->
+    </select>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+
+<h2>Units:</h2>
+<ul id="units-list"></ul>
+</body>
+</html>
