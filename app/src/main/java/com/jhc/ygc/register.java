@@ -73,111 +73,113 @@ public class register extends AppCompatActivity {
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar2.setVisibility(View.VISIBLE);
-                final String email = mEmail.getText().toString().trim();
-                String password = mPassword.getText().toString().trim();
-                String password2 = mPass2.getText().toString().trim();
-                final String fullname = mFullName.getText().toString().trim();
-                final String grade = mGrade.getText().toString().trim();
-                Integer Grade = Integer.parseInt(grade);
-
-                if(TextUtils.isEmpty(email)) {
-                    mEmail.setError("Email is required");
-                    progressBar2.setVisibility(View.GONE);
-                    return;
-                }
-
-                if(TextUtils.isEmpty(fullname)) {
-                    mFullName.setError("Name is required");
-                    progressBar2.setVisibility(View.GONE);
-                    return;
-                }
-
-                if(TextUtils.isEmpty(password)) {
-                    mPassword.setError("Password is required");
-                    progressBar2.setVisibility(View.GONE);
-                    return;
-                }
-
-                if(TextUtils.isEmpty(grade)) {
-                    mGrade.setError("Type your grade");
-                    progressBar2.setVisibility(View.GONE);
-                    return;
-                }
-
-                if(TextUtils.isEmpty(password2)) {
-                    mPassword.setError("Type your password again");
-                    progressBar2.setVisibility(View.GONE);
-                    return;
-                }
-
-                if(!password.equals(password2)) {
-                    mPassword.setError("The passwords don't match");
-                    progressBar2.setVisibility(View.GONE);
-                    return;
-                }
-
-                if(password.length() < 8) {
-                    mPassword.setError("The password length should be 8 or more than 8");
-                    progressBar2.setVisibility(View.GONE);
-                    return;
-                }
-
-                if(Grade == 0 || Grade > 13) {
-                    mGrade.setError("Enter valid grade");
-                    progressBar2.setVisibility(View.GONE);
-                    return;
-                }
+                if(mEmail.getText()!=null&&mPassword.getText()!=null&&mPass2.getText()!=null&&mFullName.getText()!=null&&mGrade.getText()!=null) {
+                    progressBar2.setVisibility(View.VISIBLE);
+                    final String email = mEmail.getText().toString().trim();
+                    String password = mPassword.getText().toString().trim();
+                    String password2 = mPass2.getText().toString().trim();
+                    final String fullname = mFullName.getText().toString().trim();
+                    final String grade = mGrade.getText().toString().trim();
+                    Integer Grade = Integer.parseInt(grade);
 
 
-
-                fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            FirebaseUser fuser = fAuth.getCurrentUser();
-                            fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    progressBar2.setVisibility(View.GONE);
-                                    Toast.makeText(getApplicationContext(),"Register Successful", Toast.LENGTH_SHORT).show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG,"Onfailure: Email Not Sent" + e.getMessage());
-                                    progressBar2.setVisibility(View.GONE);
-                                }
-                            });
-                            Toast.makeText(getApplicationContext(),"User created", Toast.LENGTH_SHORT).show();
-                            userID = fAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = fstore.collection("user").document(userID);
-                            Map<String,Object> user = new HashMap<>();
-                            user.put("fname", fullname);
-                            user.put("email",email);
-                            user.put("grade",grade);
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Log.d(TAG,"onsuccess: user profile is created for" + userID);
-                                    progressBar2.setVisibility(View.GONE);
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG,"onFailure: " + e.toString());
-                                    progressBar2.setVisibility(View.GONE);
-                                }
-                            });
-
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                           finish();
-                        } else {
-                            Toast.makeText(register.this,"Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar2.setVisibility(View.GONE);
-                        }
+                    if (TextUtils.isEmpty(email)) {
+                        mEmail.setError("Email is required");
+                        progressBar2.setVisibility(View.GONE);
+                        return;
                     }
-                });
+
+                    if (TextUtils.isEmpty(fullname)) {
+                        mFullName.setError("Name is required");
+                        progressBar2.setVisibility(View.GONE);
+                        return;
+                    }
+
+                    if (TextUtils.isEmpty(password)) {
+                        mPassword.setError("Password is required");
+                        progressBar2.setVisibility(View.GONE);
+                        return;
+                    }
+
+                    if (TextUtils.isEmpty(grade)) {
+                        mGrade.setError("Type your grade");
+                        progressBar2.setVisibility(View.GONE);
+                        return;
+                    }
+
+                    if (TextUtils.isEmpty(password2)) {
+                        mPassword.setError("Type your password again");
+                        progressBar2.setVisibility(View.GONE);
+                        return;
+                    }
+
+                    if (!password.equals(password2)) {
+                        mPassword.setError("The passwords don't match");
+                        progressBar2.setVisibility(View.GONE);
+                        return;
+                    }
+
+                    if (password.length() < 8) {
+                        mPassword.setError("The password length should be 8 or more than 8");
+                        progressBar2.setVisibility(View.GONE);
+                        return;
+                    }
+
+                    if (Grade == 0 || Grade > 13) {
+                        mGrade.setError("Enter valid grade");
+                        progressBar2.setVisibility(View.GONE);
+                        return;
+                    }
+
+
+                    fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser fuser = fAuth.getCurrentUser();
+                                fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        progressBar2.setVisibility(View.GONE);
+                                        Toast.makeText(getApplicationContext(), "Register Successful", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "Onfailure: Email Not Sent" + e.getMessage());
+                                        progressBar2.setVisibility(View.GONE);
+                                    }
+                                });
+                                Toast.makeText(getApplicationContext(), "User created", Toast.LENGTH_SHORT).show();
+                                userID = fAuth.getCurrentUser().getUid();
+                                DocumentReference documentReference = fstore.collection("user").document(userID);
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("fname", fullname);
+                                user.put("email", email);
+                                user.put("grade", grade);
+                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d(TAG, "onsuccess: user profile is created for" + userID);
+                                        progressBar2.setVisibility(View.GONE);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "onFailure: " + e.toString());
+                                        progressBar2.setVisibility(View.GONE);
+                                    }
+                                });
+
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(register.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                progressBar2.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+                }
             }
         });
     }
