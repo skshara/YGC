@@ -2,6 +2,7 @@ package com.jhc.ygc.ui.gallery;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,8 +72,24 @@ private FragmentGalleryBinding binding;
                             Picasso.get().load(fUser.getPhotoUrl()).into(imageView);
                         }
                         // Access the user data and do whatever you need with it
-                        mEmail.setText(email);
-                        mFname.setText(fname);
+                        if(TextUtils.isEmpty(email)) {
+                            if(!TextUtils.isEmpty(fUser.getEmail())){
+                                mEmail.setText(fUser.getEmail());
+                            } else {
+                                mEmail.setText("");
+                            }
+                        } else {
+                            mEmail.setText(email);
+                        }
+                        if(TextUtils.isEmpty(fname)) {
+                            if(!TextUtils.isEmpty(fUser.getDisplayName())){
+                                mFname.setText(fUser.getDisplayName());
+                            } else {
+                                mFname.setText("");
+                            }
+                        } else {
+                            mFname.setText(fname);
+                        }
                         mGrade.setText(grade);
                         UserID.setText(fUserUid);
                     } else {
