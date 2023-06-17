@@ -59,4 +59,10 @@ let songs = [
         artist: 'e-Carnatic tamil',
         cover: 'assets/images/cover 1.png'
     },
+    {
+        name: 'Teachers anthem | Aasiriyar Keetham',
+        path: 'assets/musics/y2mate.com - ஆசரயர கதம.mp3',
+        artist: 'e-Carnatic tamil',
+        cover: 'assets/images/cover 3.png'
+    },
 ]

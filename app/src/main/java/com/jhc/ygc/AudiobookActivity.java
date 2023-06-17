@@ -34,7 +34,6 @@ public class AudiobookActivity extends AppCompatActivity {
     @SuppressLint("SetJavaScriptEnabled")
     public void loadUrl(String url) {
         final WebView myWebView = findViewById(R.id.audioweb);
-        final ProgressDialog dialog = ProgressDialog.show(AudiobookActivity.this, "", getString(R.string.loading), true);
         myWebView.setVerticalScrollBarEnabled(false);
         myWebView.setHorizontalScrollBarEnabled(false);
         WebSettings webSettings = myWebView.getSettings();
@@ -57,7 +56,6 @@ public class AudiobookActivity extends AppCompatActivity {
 
             public void onPageFinished(WebView view, String url) {
                 //Toast.makeText(myActivity.this, "Oh no!", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
             }
 
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
