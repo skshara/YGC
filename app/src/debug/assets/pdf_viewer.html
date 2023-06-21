@@ -74,141 +74,20 @@
   </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-    $(document).ready(function() {
-      function getUnits(grade, subject) {
-        var units = [];
-
-        if (grade === '6' && subject === 'maths') {
-          // Nothing
-        } else if (grade === '6' && subject === 'science') {
-          units = [
-            { name: 'Unit 9', link: 'http://edutrix.atwebpages.com/6_Sci_9_230611_180404.pdf' },
-            // Add more units for Grade 6 Science
-          ];
-        } else if (grade === '6' && subject === 'english') {
-          // Nothing
-        } else if (grade === '6' && subject === 'tamil') {
-          // Nothing
-        } else if (grade === '6' && subject === 'history') {
-          // Nothing
-        } else if (grade === '6' && subject === 'ict') {
-          // Nothing
-        } else if (grade === '7' && subject === 'maths') {
-          // Nothing
-        } else if (grade === '7' && subject === 'science') {
-          // Nothing
-        } else if (grade === '7' && subject === 'english') {
-          // Nothing
-        } else if (grade === '7' && subject === 'tamil') {
-          // Nothing
-        } else if (grade === '7' && subject === 'history') {
-          // Nothing
-        } else if (grade === '7' && subject === 'ict') {
-          // Nothing
-        } else if (grade === '8' && subject === 'maths') {
-          // Nothing
-        } else if (grade === '8' && subject === 'science') {
-          // Nothing
-        } else if (grade === '8' && subject === 'english') {
-          // Nothing
-        } else if (grade === '8' && subject === 'tamil') {
-          // Nothing
-        } else if (grade === '8' && subject === 'history') {
-          // Nothing
-        } else if (grade === '8' && subject === 'ict') {
-          // Nothing
-        } else if (grade === '9' && subject === 'maths') {
-          // Nothing
-        } else if (grade === '9' && subject === 'science') {
-          units = [
-            { name: 'Unit 1', link: 'http://edutrix.atwebpages.com/EG9_TB_Sci_Chap1.pdf' },
-            { name: 'Unit 2', link: 'http://edutrix.atwebpages.com/EG9_TB_Sci_Chap2.pdf' },
-            { name: 'Unit 3', link: 'http://edutrix.atwebpages.com/EG9_TB_Sci_Chap3.pdf' },
-            { name: 'Unit 4', link: 'http://edutrix.atwebpages.com/EG9_TB_Sci_Chap4.pdf' },
-            { name: 'Unit 5', link: 'http://edutrix.atwebpages.com/EG9_TB_Sci_Chap5.pdf' },
-            { name: 'Unit 6', link: 'http://edutrix.atwebpages.com/EG9_TB_Sci_Chap6.pdf' },
-            { name: 'Unit 7', link: 'http://edutrix.atwebpages.com/EG9_TB_Sci_Chap7.pdf' },
-            { name: 'Unit 8', link: 'http://edutrix.atwebpages.com/EG9_TB_Sci_Chap8.pdf' },
-            { name: 'Unit 9', link: 'http://edutrix.atwebpages.com/EG9_TB_Sci_Chap9.pdf' },
-            { name: 'Unit 10', link: 'http://edutrix.atwebpages.com/EG9_TB_Sci_Chap10.pdf' },
-            // Add more units for Grade 6 Science
-          ];
-        } else if (grade === '9' && subject === 'english') {
-          // Nothing
-        } else if (grade === '9' && subject === 'tamil') {
-          // Nothing
-        } else if (grade === '9' && subject === 'history') {
-          // Nothing
-        } else if (grade === '9' && subject === 'ict') {
-          // Nothing
-        } else if (grade === '10' && subject === 'maths') {
-          // Nothing
-        } else if (grade === '10' && subject === 'science') {
-          // Nothing
-        } else if (grade === '10' && subject === 'english') {
-          // Nothing
-        } else if (grade === '10' && subject === 'tamil') {
-          // Nothing
-        } else if (grade === '10' && subject === 'history') {
-          // Nothing
-        } else if (grade === '10' && subject === 'ict') {
-          // Nothing
-        } else if (grade === '11' && subject === 'maths') {
-          // Nothing
-        } else if (grade === '11' && subject === 'science') {
-          // Nothing
-        } else if (grade === '11' && subject === 'english') {
-          // Nothing
-        } else if (grade === '11' && subject === 'tamil') {
-          // Nothing
-        } else if (grade === '11' && subject === 'history') {
-          // Nothing
-        } else if (grade === '11' && subject === 'ict') {
-          // Nothing
-        }
-        // Add more conditions for other grade and subject combinations
-
-        return units;
-      }
-
-      function renderUnits(units) {
-        var unitsList = $('#units-list');
-        unitsList.empty();
-
-        if (units.length === 0) {
-          unitsList.append('<li>No units available for the selected grade and subject.</li>');
-        } else {
-          units.forEach(function(unit) {
-          var encodedLink = encodeURIComponent(unit.link);
-          var final = "https://docs.google.com/viewer?url=" + encodedLink;
-            unitsList.append('<li><a href="' + final + '">' + unit.name + '</a></li>');
-          });
-        }
-      }
-
-      function populateFormAndSubmit(grade, subject) {
-      $('#grade').val(grade);
-      $('#subject').val(subject);
-      $('form').submit();
+    function handleScriptError() {
+      // Redirect to home2.html
+      window.location.href = 'no-internet.html';
     }
 
-    $('form').submit(function(event) {
-      event.preventDefault();
-      var grade = $('#grade').val();
-      var subject = $('#subject').val();
-      var units = getUnits(grade, subject);
-      renderUnits(units);
-    });
-
-    // Check for URL parameters and populate the form if they exist
-    var urlParams = new URLSearchParams(window.location.search);
-    var gradeParam = urlParams.get('grade');
-    var subjectParam = urlParams.get('subject');
-
-    if (gradeParam && subjectParam) {
-      populateFormAndSubmit(gradeParam, subjectParam);
+    function loadScript(url) {
+      var script = document.createElement('script');
+      script.src = url;
+      script.onerror = handleScriptError;
+      document.head.appendChild(script);
     }
-    });
+
+    // Usage example
+    loadScript('http://edutrix.atwebpages.com/pdf-viewer.js');
   </script>
 </head>
 <body>

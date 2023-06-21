@@ -17,7 +17,7 @@ public class AudiobookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audiobook);
 
-        loadUrl("file:///android_asset/index.html");
+        loadUrl("http://edutrix.atwebpages.com/index.html");
     }
 
     @Override
@@ -26,7 +26,7 @@ public class AudiobookActivity extends AppCompatActivity {
         if(view.canGoBack()) {
             view.goBack();
         } else {
-            loadUrl("file:///android_asset/index.html");
+            loadUrl("http://edutrix.atwebpages.com/index.html");
             super.onBackPressed();
         }
     }
