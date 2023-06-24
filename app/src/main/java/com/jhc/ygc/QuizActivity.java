@@ -13,6 +13,15 @@ import android.widget.Toast;
 public class QuizActivity extends AppCompatActivity {
 
     @Override
+    public void onBackPressed() {
+        WebView view = findViewById(R.id.weblay);
+        if(view.canGoBack()) {
+            view.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);

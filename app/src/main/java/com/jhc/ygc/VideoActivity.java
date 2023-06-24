@@ -5,12 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 public class VideoActivity extends AppCompatActivity {
+    private FrameLayout fullscreenContainer;
+    private WebChromeClient.CustomViewCallback customViewCallback;
+    private View customView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +41,7 @@ public class VideoActivity extends AppCompatActivity {
     @SuppressLint("SetJavaScriptEnabled")
     public void loadUrl(String url) {
         final WebView myWebView = findViewById(R.id.weblay);
+        fullscreenContainer = findViewById(R.id.fullscreen);
         myWebView.setVerticalScrollBarEnabled(false);
         myWebView.setHorizontalScrollBarEnabled(false);
         WebSettings webSettings = myWebView.getSettings();
@@ -41,6 +49,32 @@ public class VideoActivity extends AppCompatActivity {
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setDomStorageEnabled(true);
         myWebView.setWebViewClient(new WebViewClient() {
+
+            public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
+                if (customView != null) {
+                    callback.onCustomViewHidden();
+                    return;
+                }
+
+                customView = view;
+                customViewCallback = callback;
+                fullscreenContainer.addView(customView);
+                fullscreenContainer.setVisibility(View.VISIBLE);
+                myWebView.setVisibility(View.GONE);
+                setFullscreen(true);
+            }
+
+            public void onHideCustomView() {
+                if (customView == null) {
+                    return;
+                }
+
+                fullscreenContainer.setVisibility(View.GONE);
+                myWebView.setVisibility(View.VISIBLE);
+                customViewCallback.onCustomViewHidden();
+                customView = null;
+                setFullscreen(false);
+            }
             private static final String BLOCKED_URL = "youtube.com";
 
             @Override
@@ -65,5 +99,20 @@ public class VideoActivity extends AppCompatActivity {
 
         }); //End WebViewClient
         myWebView.loadUrl(url);
+    }
+
+    private void setFullscreen(boolean fullscreen) {
+        Window window = getWindow();
+        if (fullscreen) {
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+            window.addFlags(Window.FEATURE_ACTION_BAR_OVERLAY);
+            getActionBar().hide();
+        } else {
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+            window.clearFlags(Window.FEATURE_ACTION_BAR_OVERLAY);
+            getActionBar().show();
+        }
     }
 }
