@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="types">
+        <item>Select type of source</item>
+        <item>Interactive Videos</item>
+        <item>Ebook</item>
+        <item>Audio book</item>
+        <item>Quiz</item>
+
+    </string-array>
+
+    <string-array name="dropdown_items">
+        <item>Select Grade</item>
+        <item>Grade 6</item>
+        <item>Grade 7</item>
+        <item>Grade 8</item>
+        <item>Grade 9</item>
+        <item>Grade 10</item>
+        <item>Grade11</item>
+    </string-array>
+</resources>
