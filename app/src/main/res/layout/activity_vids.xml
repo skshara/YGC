@@ -13,7 +13,96 @@
         android:id="@+id/weblay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#f8f8f8">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Grade and Subject Selection"
+            android:textSize="36sp"
+            android:textColor="#333"
+            android:fontFamily="sans-serif"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Grade:"
+                android:textSize="16sp"
+                android:textColor="#333" />
+
+            <Spinner
+                android:id="@+id/gradeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:background="#ccc"
+                android:textColor="#333"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subject:"
+                android:textSize="16sp"
+                android:textColor="#333" />
+
+            <Spinner
+                android:id="@+id/subjectSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:background="#ccc"
+                android:textColor="#333" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textSize="16sp"
+            android:background="#333"
+            android:textColor="#fff"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Units:"
+            android:textSize="24sp"
+            android:textColor="#333"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            />
+
+        <ListView
+            android:id="@+id/unitsListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp" />
+
+    </LinearLayout>
 
 
 </FrameLayout>
