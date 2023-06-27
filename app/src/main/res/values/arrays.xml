@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="types">
-        <item>Select type of source</item>
         <item>Interactive Videos</item>
         <item>Ebook</item>
         <item>Quiz</item>
@@ -9,7 +8,6 @@
     </string-array>
 
     <string-array name="grade_array">
-        <item>Select Grade</item>
         <item>Grade 6</item>
         <item>Grade 7</item>
         <item>Grade 8</item>
@@ -18,7 +16,6 @@
         <item>Grade 11</item>
     </string-array>
     <string-array name="subject_array">
-        <item>Select Subject</item>
         <item>Science</item>
         <item>Maths</item>
         <item>History</item>

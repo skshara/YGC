@@ -110,39 +110,43 @@ public class login extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+
                 String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
 
 
-                if(TextUtils.isEmpty(email)) {
+                if (TextUtils.isEmpty(email)) {
                     mEmail.setError("Email is required");
                     return;
                 }
 
-                if(TextUtils.isEmpty(password)) {
+                if (TextUtils.isEmpty(password)) {
                     mPassword.setError("Password is required");
                     return;
                 }
 
-                progressBar.setVisibility(View.VISIBLE);
 
-                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(),"Login success",Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                            finish();
+                    progressBar.setVisibility(View.VISIBLE);
+
+                if (email.equals("admin@edutrix.lk")&&password.equals("@dmin#2009")) {
+                    startActivity(new Intent(getApplicationContext(),detailupdate.class));
+                    finish();
+                }
+                    fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                            }
                         }
-                        else {
-                            Toast.makeText(getApplicationContext(),"Error: " + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
+                    });
             }
-
         });
     }
 

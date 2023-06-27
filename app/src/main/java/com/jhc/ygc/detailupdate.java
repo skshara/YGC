@@ -1,5 +1,6 @@
 package com.jhc.ygc;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,7 +13,15 @@ import android.widget.Spinner;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class detailupdate extends AppCompatActivity {
 
@@ -21,6 +30,10 @@ public class detailupdate extends AppCompatActivity {
     public boolean isSubjectChecked = false;
     Button login,upload;
     public TextInputEditText fName,fLink;
+    FirebaseFirestore db;
+    DocumentReference interactiveVideoUpload;
+    DocumentReference eBookUpload;
+    DocumentReference quizzesUpload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +43,7 @@ public class detailupdate extends AppCompatActivity {
         upload = (Button) findViewById(R.id.upload);
         fName = (TextInputEditText) findViewById(R.id.Title_det);
         fLink = (TextInputEditText) findViewById(R.id.link);
+        db = FirebaseFirestore.getInstance();
 
         Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.types, android.R.layout.simple_spinner_item);
@@ -50,17 +64,11 @@ public class detailupdate extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 // Handle the selected item
-                if(position == 0) {
-                    isContentChecked = false;
-                } else {
-                    isGradeChecked = true;
-                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Handle the case where nothing is selected
-                isContentChecked = false;
             }
         });
 
@@ -74,18 +82,12 @@ public class detailupdate extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
-                // Handle the selected item
-                if(position == 0) {
-                    isGradeChecked = false;
-                } else {
-                    isGradeChecked = true;
-                }
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Handle the case where nothing is selected
-                isGradeChecked = false;
             }
         });
 
@@ -98,25 +100,18 @@ public class detailupdate extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
-                if(position==0) {
-                    isSubjectChecked = false;
-                } else {
-                    isSubjectChecked = true;
-                }
                 // Handle the selected item
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Handle the case where nothing is selected
-                isSubjectChecked = false;
             }
         });
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isGradeChecked&&isContentChecked&&isSubjectChecked) {
                     if(fName.getText()!=null&&fLink.getText()!=null) {
                         String name = fName.getText().toString().trim();
                         String link = fLink.getText().toString().trim();
@@ -124,12 +119,67 @@ public class detailupdate extends AppCompatActivity {
                         String grade = spinner1.getSelectedItem().toString();
                         String subject = spinner3.getSelectedItem().toString();
                         // Do something
-                        // TODO Firebase Adding like in profile screen
+                        switch(content) {
+                            case "Interactive Videos":
+                                // DO
+                                interactiveVideoUpload = db.collection("interactive-video").document(grade).collection(subject).document("units");
+                                Map<String, Object> interactiveVideo = new HashMap<>();
+                                interactiveVideo.put(name, link);
+                                interactiveVideoUpload.update(interactiveVideo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(detailupdate.this, "Successfully added new resource", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(detailupdate.this, "Failed to add: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                                return;
+                            case "Ebook":
+                                // DO
+                                eBookUpload = db.collection("pdf-viewer").document(grade).collection(subject).document("units");
+                                Map<String, Object> eBook = new HashMap<>();
+                                eBook.put(name, link);
+                                eBookUpload.update(eBook).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(detailupdate.this, "Successfully added new resource", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(detailupdate.this, "Failed to add: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                return;
+                            case "Quiz":
+                                // DO
+                                quizzesUpload = db.collection("quizzes").document(grade).collection(subject).document("units");
+                                Map<String, Object> quizzes = new HashMap<>();
+                                quizzes.put(name, link);
+                                quizzesUpload.update(quizzes).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(detailupdate.this, "Successfully added new resource", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(detailupdate.this, "Failed to add: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                return;
+                            default:
+                                // default
+                                Toast.makeText(detailupdate.this, "Unknown error occurred", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(detailupdate.this, "Fill all information", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }
         });
         
         
