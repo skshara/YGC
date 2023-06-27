@@ -23,8 +23,17 @@ import com.jhc.ygc.MainActivity;
 import com.jhc.ygc.R;
 import com.jhc.ygc.databinding.FragmentGalleryBinding;
 import com.jhc.ygc.edit_info;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Map;
 
 public class GalleryFragment extends Fragment {
@@ -34,11 +43,13 @@ private FragmentGalleryBinding binding;
     FirebaseAuth fAuth;
     FirebaseUser fUser;
     String fUserUid;
-    TextView mEmail,mFname,mGrade,UserID;
+    TextView mEmail,mFname,mGrade,UserID,mPoints;
     Button editBtn;
     ImageView imageView;
     FirebaseFirestore db;
     DocumentReference userDocRef;
+    public OkHttpClient client;
+    public static Integer points;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         GalleryViewModel galleryViewModel =
                 new ViewModelProvider(this).get(GalleryViewModel.class);
@@ -50,15 +61,23 @@ private FragmentGalleryBinding binding;
         mEmail = root.findViewById(R.id.textView4);
         mFname = root.findViewById(R.id.textView3);
         mGrade = root.findViewById(R.id.detail1);
+        mPoints = root.findViewById(R.id.detail2);
         UserID = root.findViewById(R.id.detail3);
         imageView = root.findViewById(R.id.imageView4);
         editBtn = root.findViewById(R.id.back);
         fAuth = FirebaseAuth.getInstance();
         fUser = fAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
+        client = new OkHttpClient();
         fUserUid = "123";
+        points = null;
 
         if (fUser != null) {
+            getPointsForCurrentUser();
+            if(points!=null) {
+                String point = points.toString().trim();
+                mPoints.setText(point);
+            }
             fUserUid = fUser.getUid();
             userDocRef = db.collection("user").document(fUserUid);
             userDocRef.get().addOnSuccessListener(documentSnapshot -> {
@@ -141,10 +160,55 @@ private FragmentGalleryBinding binding;
                 startActivity(intent);
             }
         });
+
+
         galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
+    public void getPointsForCurrentUser() {
+        // Get the current Firebase user
 
+        // Obtain the user ID
+        String userId = fUser.getUid();
+
+        // Construct the API endpoint URL
+        String url = getString(R.string.H5P_BASE_URL) + "/points?user_id=" + userId;
+
+        // Create the request and make the API call
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Api-Key", getString(R.string.API_KEY))
+                .addHeader("Api-Secret", getString(R.string.API_SECRET))
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                // Handle failure
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                // Handle the API response
+                if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseData);
+                        points = jsonObject.getInt("points");
+                        // Process the points data
+                        // You can perform any desired operations with the points value
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        // Handle JSON parsing error
+                    }
+                } else {
+                    // Handle API error response
+                }
+            }
+        });
+    }
 @Override
     public void onDestroyView() {
         super.onDestroyView();

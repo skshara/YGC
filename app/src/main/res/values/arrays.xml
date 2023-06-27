@@ -4,18 +4,26 @@
         <item>Select type of source</item>
         <item>Interactive Videos</item>
         <item>Ebook</item>
-        <item>Audio book</item>
         <item>Quiz</item>
 
     </string-array>
 
-    <string-array name="dropdown_items">
+    <string-array name="grade_array">
         <item>Select Grade</item>
         <item>Grade 6</item>
         <item>Grade 7</item>
         <item>Grade 8</item>
         <item>Grade 9</item>
         <item>Grade 10</item>
-        <item>Grade11</item>
+        <item>Grade 11</item>
+    </string-array>
+    <string-array name="subject_array">
+        <item>Select Subject</item>
+        <item>Science</item>
+        <item>Maths</item>
+        <item>History</item>
+        <item>ICT</item>
+        <item>Tamil</item>
+        <item>English</item>
     </string-array>
 </resources>

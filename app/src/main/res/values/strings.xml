@@ -30,6 +30,10 @@
     <string name="menu_profile">Profile</string>
     <string name="lost_connection">Internet connection lost</string>
     <string name="loading">Loading...</string>
+    <string name="API_KEY">edutrix-c245a</string>
+    <string name="API_SECRET">3UI0pK8Q9I9Upihr1UjkFum6cEA3yUJn</string>
+    <string name="H5P_BASE_URL">https://edutrix.h5p.com</string>
+
 
 
 </resources>
