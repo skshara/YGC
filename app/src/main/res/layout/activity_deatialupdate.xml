@@ -47,7 +47,7 @@
                 android:background="@color/primary" />
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/spinner1"
                 style="@style/Widget.AppCompat.Light.DropDownItem.Spinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

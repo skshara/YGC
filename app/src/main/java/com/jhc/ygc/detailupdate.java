@@ -64,7 +64,7 @@ public class detailupdate extends AppCompatActivity {
             }
         });
 
-        Spinner spinner1 = findViewById(R.id.spinner2);
+        Spinner spinner1 = findViewById(R.id.spinner1);
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.grade_array, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter1);
