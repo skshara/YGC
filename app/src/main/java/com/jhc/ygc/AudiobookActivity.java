@@ -26,7 +26,7 @@ public class AudiobookActivity extends AppCompatActivity {
         if(view.canGoBack()) {
             view.goBack();
         } else {
-            loadUrl("http://edutrix.atwebpages.com/index.html");
+            loadUrl("file:///android_asset/no-internet.html");
             super.onBackPressed();
         }
     }
