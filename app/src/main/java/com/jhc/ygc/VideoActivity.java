@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,13 +30,15 @@ import java.util.Map;
 
 public class VideoActivity extends AppCompatActivity {
     Button submit;
-    FirebaseFirestore db;
-    DocumentReference documentRef;
+    FirebaseFirestore db,db2;
+    DocumentReference documentRef,documentRef2;
     ListView listView;
     List<String> linksList;
     Map<String, Object> data;
     LinearLayout linearLayout;
     List<String> namesLink;
+    FirebaseAuth fAuth;
+    FirebaseUser fUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,8 @@ public class VideoActivity extends AppCompatActivity {
         submit = findViewById(R.id.submit);
         listView = findViewById(R.id.unitsListView);
         linearLayout = findViewById(R.id.linearFun);
+        fAuth = FirebaseAuth.getInstance();
+        fUser = fAuth.getCurrentUser();
 
         //loadUrl("file:///android_asset/interactive-video.html");
 
@@ -54,6 +60,24 @@ public class VideoActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.grade_array, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter1);
+        db2 = FirebaseFirestore.getInstance();
+        documentRef2 = db2.collection("user").document(fUser.getUid());
+        documentRef2.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Map<String, Object> userData = document.getData();
+                    if(userData!=null) {
+                        String grade = (String) userData.get("grade");
+                        Integer gradeInt = Integer.parseInt(grade);
+                        Integer position = gradeInt-6;
+                        spinner1.setSelection(position);
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Grade retrieval failed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         submit.setOnClickListener(view -> {
             String grade = spinner1.getSelectedItem().toString();
@@ -105,7 +129,7 @@ public class VideoActivity extends AppCompatActivity {
         if(view.canGoBack()) {
             view.goBack();
         } else {
-            loadUrl("file:///android_asset/interactive-video.html");
+            loadUrl("file:///android_asset/no-internet.html");
             super.onBackPressed();
         }
     }

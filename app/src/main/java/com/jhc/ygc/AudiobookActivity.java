@@ -10,6 +10,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class AudiobookActivity extends AppCompatActivity {
 
     @Override
@@ -17,7 +20,7 @@ public class AudiobookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audiobook);
 
-        loadUrl("http://edutrix.atwebpages.com/index.html");
+        loadUrl("https://ygccomp.web.app/index.html");
     }
 
     @Override
@@ -36,9 +39,13 @@ public class AudiobookActivity extends AppCompatActivity {
         final WebView myWebView = findViewById(R.id.audioweb);
         myWebView.setVerticalScrollBarEnabled(false);
         myWebView.setHorizontalScrollBarEnabled(false);
+        myWebView.clearCache(true);
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setAllowUniversalAccessFromFileURLs(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setAllowFileAccessFromFileURLs(true);
         webSettings.setDomStorageEnabled(true);
         myWebView.setWebViewClient(new WebViewClient() {
             private static final String BLOCKED_URL = "youtube.com";
