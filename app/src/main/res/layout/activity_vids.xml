@@ -16,20 +16,22 @@
         android:visibility="invisible" />
 
     <LinearLayout
+        android:id="@+id/linearFun"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#f8f8f8"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="#f8f8f8">
+        android:visibility="visible">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Grade and Subject Selection"
-            android:textSize="36sp"
-            android:textColor="#333"
             android:fontFamily="sans-serif"
-            android:gravity="center" />
+            android:gravity="center"
+            android:text="Grade and Subject Selection"
+            android:textColor="#333"
+            android:textSize="36sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,17 +42,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Grade:"
-                android:textSize="16sp"
-                android:textColor="#333" />
+                android:textColor="#333"
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/gradeSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
                 android:background="#ccc"
                 android:textColor="#333"
-                />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -63,39 +64,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Subject:"
-                android:textSize="16sp"
-                android:textColor="#333" />
+                android:textColor="#333"
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/subjectSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
                 android:background="#ccc"
-                android:textColor="#333" />
+                android:textColor="#333"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
         <Button
+            android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/submit"
-            android:text="Submit"
-            android:textSize="16sp"
-            android:background="#333"
-            android:textColor="#fff"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:background="#333"
+            android:text="Submit"
+            android:textColor="#fff"
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Units:"
-            android:textSize="24sp"
-            android:textColor="#333"
             android:fontFamily="sans-serif"
             android:gravity="center"
-            />
+            android:text="Units:"
+            android:textColor="#333"
+            android:textSize="24sp" />
 
         <ListView
             android:id="@+id/unitsListView"
