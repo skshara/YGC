@@ -42,7 +42,7 @@ public class QuizActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        WebView view = findViewById(R.id.weblay);
+        WebView view = findViewById(R.id.web_quiz);
         if(view.canGoBack()) {
             view.goBack();
         } else {
@@ -134,7 +134,7 @@ public class QuizActivity extends AppCompatActivity {
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
             String selectedLink = namesLink.get(i);
             if(!selectedLink.equals("eduTrix://nothing")) {
-                WebView webView = findViewById(R.id.weblay);
+                WebView webView = findViewById(R.id.web_quiz);
                 webView.setVisibility(View.VISIBLE);
                 linearLayout.setVisibility(View.INVISIBLE);
                 loadUrl(selectedLink);

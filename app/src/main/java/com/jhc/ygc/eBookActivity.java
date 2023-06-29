@@ -3,6 +3,7 @@ package com.jhc.ygc;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -102,7 +103,9 @@ public class eBookActivity extends AppCompatActivity {
 
                             // Do something with the field and value
                             linksList.add(field);
-                            namesLink.add(value);
+                            String url = "https://docs.google.com/viewer?url=" + Uri.encode(value);
+                            Log.d("TAG",url);
+                            namesLink.add(url);
                         }
                         if(linksList.isEmpty()) {
                             linksList.add("No resource available in current selection");
@@ -122,9 +125,10 @@ public class eBookActivity extends AppCompatActivity {
             });
         });
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            String selectedName = linksList.get(i);
             String selectedLink = namesLink.get(i);
-            if(!selectedLink.equals("eduTrix://nothing")) {
-                WebView webView = findViewById(R.id.weblay);
+            if(!selectedName.equals("No resource available in current selection")) {
+                WebView webView = findViewById(R.id.web_pdf);
                 webView.setVisibility(View.VISIBLE);
                 linearLayout.setVisibility(View.INVISIBLE);
                 loadUrl(selectedLink);
