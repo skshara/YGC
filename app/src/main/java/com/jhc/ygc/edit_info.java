@@ -102,6 +102,8 @@ public class edit_info extends AppCompatActivity {
                }
                if (!TextUtils.isEmpty(grade)) {
                    // Update grade
+                   Integer gradeInt = Integer.parseInt(grade);
+                   if(gradeInt>5&&gradeInt<12) {
                    String fUserUid = fUser.getUid();
                    DocumentReference db = fStore.collection("user").document(fUserUid);
                    db.get().addOnSuccessListener(documentSnapshot -> {
@@ -159,7 +161,7 @@ public class edit_info extends AppCompatActivity {
                        });
                    });
                }
-           }
+           }}
        });
        }
 }

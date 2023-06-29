@@ -134,7 +134,7 @@ public class register extends AppCompatActivity {
                         return;
                     }
 
-                    if (Grade == 0 || Grade > 13) {
+                    if (Grade < 6 || Grade > 11) {
                         mGrade.setError("Enter valid grade");
                         progressBar2.setVisibility(View.GONE);
                         return;
