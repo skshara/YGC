@@ -160,7 +160,9 @@ public class edit_info extends AppCompatActivity {
                            }
                        });
                    });
-               }
+               } else {
+                       Toast.makeText(this, "Choose valid grade", Toast.LENGTH_SHORT).show();
+                   }
            }}
        });
        }
