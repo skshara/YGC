@@ -113,6 +113,7 @@ public class QuizActivity extends AppCompatActivity {
                             // Do something with the field and value
                             linksList.add(field);
                             namesLink.add(value);
+                            Log.d("TAG",value);
                         }
                         if(linksList.isEmpty()) {
                             linksList.add("No resource available in current selection");
