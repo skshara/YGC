@@ -28,6 +28,7 @@ public class QuizActivity extends AppCompatActivity {
         loadUrl("file:///android_asset/quiz.html");
     }
 
+    @SuppressWarnings("deprecation")
     @SuppressLint("SetJavaScriptEnabled")
     public void loadUrl(String url) {
         final WebView myWebView = findViewById(R.id.web_quiz);

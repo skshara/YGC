@@ -56,13 +56,9 @@ public class edit_info extends AppCompatActivity {
                                if (documentSnapshot.exists()) {
                                    Map<String, Object> userData = documentSnapshot.getData();
                                    if (userData != null) {
-                                       String vFname = (String) userData.get("fname");
-                                       String vGrade = (String) userData.get("grade");
                                        Map<String, Object> user = new HashMap<>();
-                                       user.put("grade", vGrade);
-                                       user.put("fname", vFname);
                                        user.put("email", email);
-                                       db.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                       db.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                            @Override
                                            public void onSuccess(Void unused) {
                                                Toast.makeText(edit_info.this, "Successfully changed email", Toast.LENGTH_SHORT).show();
@@ -112,13 +108,9 @@ public class edit_info extends AppCompatActivity {
                        if (documentSnapshot.exists()) {
                            Map<String, Object> userData = documentSnapshot.getData();
                            if (userData != null) {
-                               String vFname = (String) userData.get("fname");
-                               String vEmail = (String) userData.get("email");
                                Map<String, Object> user = new HashMap<>();
                                user.put("grade", grade);
-                               user.put("fname", vFname);
-                               user.put("email", vEmail);
-                               db.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                               db.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                    @Override
                                    public void onSuccess(Void unused) {
                                        Toast.makeText(edit_info.this, "Successfully changed grade", Toast.LENGTH_SHORT).show();

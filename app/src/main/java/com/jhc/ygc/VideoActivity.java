@@ -3,7 +3,6 @@ package com.jhc.ygc;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -69,9 +68,13 @@ public class VideoActivity extends AppCompatActivity {
                     Map<String, Object> userData = document.getData();
                     if(userData!=null) {
                         String grade = (String) userData.get("grade");
-                        Integer gradeInt = Integer.parseInt(grade);
-                        Integer position = gradeInt-6;
-                        spinner1.setSelection(position);
+                        if(grade!=null) {
+                            int gradeInt = Integer.parseInt(grade);
+                            int position = gradeInt - 6;
+                            spinner1.setSelection(position);
+                        } else {
+                            Toast.makeText(this, "Grade retrieval failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             } else {
@@ -101,6 +104,10 @@ public class VideoActivity extends AppCompatActivity {
                             linksList.add(field);
                             namesLink.add(value);
                         }
+                        if(linksList.isEmpty()) {
+                            linksList.add("No resource available in current selection");
+                            namesLink.add("eduTrix://nothing");
+                        }
                         // Create an ArrayAdapter to populate the ListView with the links
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(VideoActivity.this, android.R.layout.simple_list_item_1, linksList);
 
@@ -116,10 +123,12 @@ public class VideoActivity extends AppCompatActivity {
         });
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
             String selectedLink = namesLink.get(i);
-            WebView webView = findViewById(R.id.weblay);
-            webView.setVisibility(View.VISIBLE);
-            linearLayout.setVisibility(View.INVISIBLE);
-            loadUrl(selectedLink);
+            if(!selectedLink.equals("eduTrix://nothing")) {
+                WebView webView = findViewById(R.id.weblay);
+                webView.setVisibility(View.VISIBLE);
+                linearLayout.setVisibility(View.INVISIBLE);
+                loadUrl(selectedLink);
+            }
         });
     }
 
@@ -143,9 +152,7 @@ public class VideoActivity extends AppCompatActivity {
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-        }
+        webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         webSettings.setDomStorageEnabled(true);
         webSettings.setAllowUniversalAccessFromFileURLs(true); // Enable access to file URLs
         myWebView.setWebChromeClient(new WebChromeClient());
