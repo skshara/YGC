@@ -34,7 +34,7 @@ android:background="@drawable/rectangle_2">
         android:layout_height="wrap_content"
         android:fontFamily="@font/alfa_slab_one"
         android:gravity="center"
-        android:text="Quizes"
+        android:text="Quizzes"
         android:textColor="#333"
         android:textSize="36sp" />
 
