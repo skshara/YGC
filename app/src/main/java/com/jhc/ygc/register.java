@@ -1,6 +1,5 @@
 package com.jhc.ygc;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -13,27 +12,11 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +33,6 @@ public class register extends AppCompatActivity {
     String userID;
 
     public FirebaseAuth fAuth;
-    public OkHttpClient client;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -59,189 +41,113 @@ public class register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        backtoLogin = (Button) findViewById(R.id.back);
-        mFullName = (TextInputEditText) findViewById(R.id.name);
-        mEmail = (TextInputEditText) findViewById(R.id.email);
-        mPassword = (TextInputEditText) findViewById(R.id.pwd);
-        mPass2 = (TextInputEditText) findViewById(R.id.repwd);
-        mGrade = (TextInputEditText) findViewById(R.id.grd);
-        mRegisterBtn = (Button) findViewById(R.id.regbtn);
+        backtoLogin = findViewById(R.id.back);
+        mFullName = findViewById(R.id.name);
+        mEmail = findViewById(R.id.email);
+        mPassword = findViewById(R.id.pwd);
+        mPass2 = findViewById(R.id.repwd);
+        mGrade = findViewById(R.id.grd);
+        mRegisterBtn = findViewById(R.id.regbtn);
         progressBar2 = findViewById(R.id.progressBar2);
 
         fAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
 
-        backtoLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), login.class));
-                finish();
-            }
+        backtoLogin.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), login.class));
+            finish();
         });
 
-        mRegisterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mEmail.getText() != null && mPassword.getText() != null && mPass2.getText() != null && mFullName.getText() != null && mGrade.getText() != null) {
-                    progressBar2.setVisibility(View.VISIBLE);
-                    final String email = mEmail.getText().toString().trim();
-                    String password = mPassword.getText().toString().trim();
-                    String password2 = mPass2.getText().toString().trim();
-                    final String fullname = mFullName.getText().toString().trim();
-                    final String grade = mGrade.getText().toString().trim();
-                    Integer Grade = Integer.parseInt(grade);
+        mRegisterBtn.setOnClickListener(view -> {
+            if (mEmail.getText() != null && mPassword.getText() != null && mPass2.getText() != null && mFullName.getText() != null && mGrade.getText() != null) {
+                progressBar2.setVisibility(View.VISIBLE);
+                final String email = mEmail.getText().toString().trim();
+                String password = mPassword.getText().toString().trim();
+                String password2 = mPass2.getText().toString().trim();
+                final String fullname = mFullName.getText().toString().trim();
+                final String grade = mGrade.getText().toString().trim();
+                int Grade = Integer.parseInt(grade);
 
 
-                    if (TextUtils.isEmpty(email)) {
-                        mEmail.setError("Email is required");
-                        progressBar2.setVisibility(View.GONE);
-                        return;
-                    }
-
-                    if (TextUtils.isEmpty(fullname)) {
-                        mFullName.setError("Name is required");
-                        progressBar2.setVisibility(View.GONE);
-                        return;
-                    }
-
-                    if (TextUtils.isEmpty(password)) {
-                        mPassword.setError("Password is required");
-                        progressBar2.setVisibility(View.GONE);
-                        return;
-                    }
-
-                    if (TextUtils.isEmpty(grade)) {
-                        mGrade.setError("Type your grade");
-                        progressBar2.setVisibility(View.GONE);
-                        return;
-                    }
-
-                    if (TextUtils.isEmpty(password2)) {
-                        mPassword.setError("Type your password again");
-                        progressBar2.setVisibility(View.GONE);
-                        return;
-                    }
-
-                    if (!password.equals(password2)) {
-                        mPassword.setError("The passwords don't match");
-                        progressBar2.setVisibility(View.GONE);
-                        return;
-                    }
-
-                    if (password.length() < 8) {
-                        mPassword.setError("The password length should be 8 or more than 8");
-                        progressBar2.setVisibility(View.GONE);
-                        return;
-                    }
-
-                    if (Grade < 6 || Grade > 11) {
-                        mGrade.setError("Enter valid grade");
-                        progressBar2.setVisibility(View.GONE);
-                        return;
-                    }
-
-
-                    fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                FirebaseUser fuser = fAuth.getCurrentUser();
-                                fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        progressBar2.setVisibility(View.GONE);
-                                        Toast.makeText(getApplicationContext(), "Register Successful", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "Onfailure: Email Not Sent" + e.getMessage());
-                                        progressBar2.setVisibility(View.GONE);
-                                    }
-                                });
-                                Toast.makeText(getApplicationContext(), "User created", Toast.LENGTH_SHORT).show();
-                                userID = fAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = fstore.collection("user").document(userID);
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("fname", fullname);
-                                user.put("email", email);
-                                user.put("grade", grade);
-                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Log.d(TAG, "onsuccess: user profile is created for" + userID);
-                                        progressBar2.setVisibility(View.GONE);
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: " + e.toString());
-                                        progressBar2.setVisibility(View.GONE);
-                                    }
-                                });
-                                String firebaseUserId = fuser.getUid();
-                                // Create the user in H5P
-                                createUserInH5P(firebaseUserId);
-
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            } else {
-                                Toast.makeText(register.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                progressBar2.setVisibility(View.GONE);
-                            }
-                        }
-
-                        private void createUserInH5P(String firebaseUserId) {
-                            // Construct the H5P user creation endpoint URL
-                            String createUserUrl = getString(R.string.H5P_BASE_URL) + "/lti";
-                            client = new OkHttpClient();
-
-                            // Create the JSON payload for H5P user creation
-                            JSONObject requestBody = new JSONObject();
-                            try {
-                                requestBody.put("user_id", firebaseUserId);
-                                // Add any other required user data for H5P
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            // Create the H5P user creation request
-                            Request request = new Request.Builder()
-                                    .url(createUserUrl)
-                                    .addHeader("Api-Key", getString(R.string.API_KEY))
-                                    .addHeader("Api-Secret", getString(R.string.API_SECRET))
-                                    .post(RequestBody.create(MediaType.parse("application/json"), requestBody.toString()))
-                                    .build();
-
-                            // Make the H5P user creation API call asynchronously
-                            if(request!=null) {
-                                client.newCall(request).enqueue(new Callback() {
-                                    @Override
-                                    public void onFailure(Request request, IOException e) {
-                                        // Handle failure
-                                        e.printStackTrace();
-                                    }
-
-                                    @Override
-                                    public void onResponse(Response response) throws IOException {
-                                        // Handle the H5P user creation response
-                                        if (response.isSuccessful()) {
-                                            runOnUiThread(() -> {
-                                                Toast.makeText(register.this, "User created in H5P", Toast.LENGTH_SHORT).show();
-                                            });
-                                            // Handle successful user creation in H5P
-                                        } else {
-                                            runOnUiThread(() -> {
-                                                Toast.makeText(register.this, "User not created in H5P", Toast.LENGTH_SHORT).show();
-                                            });
-                                            // Handle failure of user creation in H5P
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    });
+                if (TextUtils.isEmpty(email)) {
+                    mEmail.setError("Email is required");
+                    progressBar2.setVisibility(View.GONE);
+                    return;
                 }
+
+                if (TextUtils.isEmpty(fullname)) {
+                    mFullName.setError("Name is required");
+                    progressBar2.setVisibility(View.GONE);
+                    return;
+                }
+
+                if (TextUtils.isEmpty(password)) {
+                    mPassword.setError("Password is required");
+                    progressBar2.setVisibility(View.GONE);
+                    return;
+                }
+
+                if (TextUtils.isEmpty(grade)) {
+                    mGrade.setError("Type your grade");
+                    progressBar2.setVisibility(View.GONE);
+                    return;
+                }
+
+                if (TextUtils.isEmpty(password2)) {
+                    mPassword.setError("Type your password again");
+                    progressBar2.setVisibility(View.GONE);
+                    return;
+                }
+
+                if (!password.equals(password2)) {
+                    mPassword.setError("The passwords don't match");
+                    progressBar2.setVisibility(View.GONE);
+                    return;
+                }
+
+                if (password.length() < 8) {
+                    mPassword.setError("The password length should be 8 or more than 8");
+                    progressBar2.setVisibility(View.GONE);
+                    return;
+                }
+
+                if (Grade < 6 || Grade > 11) {
+                    mGrade.setError("Enter valid grade");
+                    progressBar2.setVisibility(View.GONE);
+                    return;
+                }
+
+
+                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser fuser = fAuth.getCurrentUser();
+                        fuser.sendEmailVerification().addOnSuccessListener(unused -> {
+                            progressBar2.setVisibility(View.GONE);
+                            Toast.makeText(getApplicationContext(), "Register Successful. You'll have to verify email on next sign-in", Toast.LENGTH_SHORT).show();
+                        }).addOnFailureListener(e -> {
+                            Log.d(TAG, "Onfailure: Email Not Sent" + e.getMessage());
+                            progressBar2.setVisibility(View.GONE);
+                        });
+                        Toast.makeText(getApplicationContext(), "User created", Toast.LENGTH_SHORT).show();
+                        userID = fAuth.getCurrentUser().getUid();
+                        DocumentReference documentReference = fstore.collection("user").document(userID);
+                        Map<String, Object> user = new HashMap<>();
+                        user.put("fname", fullname);
+                        user.put("email", email);
+                        user.put("grade", grade);
+                        documentReference.set(user).addOnSuccessListener(unused -> {
+                            Log.d(TAG, "onsuccess: user profile is created for" + userID);
+                            progressBar2.setVisibility(View.GONE);
+                        }).addOnFailureListener(e -> {
+                            Log.d(TAG, "onFailure: " + e);
+                            progressBar2.setVisibility(View.GONE);
+                        });
+                        fAuth.signOut();
+                    } else {
+                        Toast.makeText(register.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        progressBar2.setVisibility(View.GONE);
+                    }
+                });
             }
         });
     }

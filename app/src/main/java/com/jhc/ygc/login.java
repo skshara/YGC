@@ -115,10 +115,17 @@ public class login extends AppCompatActivity {
             } else {
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.GONE);
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
+                        FirebaseUser fUser = fAuth.getCurrentUser();
+                        if(fUser.isEmailVerified()) {
+                            Toast.makeText(getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Login failed, Please verify your email", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+                            fAuth.signOut();
+                        }
                     } else {
                         if (task.getException() != null) {
                             Toast.makeText(getApplicationContext(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -195,10 +202,14 @@ public class login extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 } else {
+                                    fAuth.signOut();
+                                    fUser.delete();
                                     Toast.makeText(this, "New User must sign up before using google sign-in", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(e -> Toast.makeText(this, "New User must sign up before using google sign-in", Toast.LENGTH_SHORT).show());
                         } else {
+                            fAuth.signOut();
+                            fUser.delete();
                             Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
                         }
                     } else {
