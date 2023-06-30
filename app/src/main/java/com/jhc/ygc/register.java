@@ -59,7 +59,7 @@ public class register extends AppCompatActivity {
         });
 
         mRegisterBtn.setOnClickListener(view -> {
-            if (mEmail.getText() != null && mPassword.getText() != null && mPass2.getText() != null && mFullName.getText() != null && mGrade.getText() != null) {
+            if (!TextUtils.isEmpty(mEmail.getText())&&!TextUtils.isEmpty(mPassword.getText())&&!TextUtils.isEmpty(mPass2.getText())&&!TextUtils.isEmpty(mFullName.getText())&&!TextUtils.isEmpty(mGrade.getText())) {
                 progressBar2.setVisibility(View.VISIBLE);
                 final String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
