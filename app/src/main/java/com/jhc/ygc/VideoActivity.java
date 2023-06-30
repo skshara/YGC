@@ -135,11 +135,16 @@ public class VideoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         WebView view = findViewById(R.id.weblay);
+        linearLayout = findViewById(R.id.linearFun);
         if(view.canGoBack()) {
             view.goBack();
         } else {
-            loadUrl("file:///android_asset/no-internet.html");
-            super.onBackPressed();
+            if(view.getVisibility()== View.VISIBLE) {
+                view.setVisibility(View.INVISIBLE);
+                linearLayout.setVisibility(View.VISIBLE);
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 

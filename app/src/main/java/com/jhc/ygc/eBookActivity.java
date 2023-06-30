@@ -139,10 +139,16 @@ public class eBookActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         WebView view = findViewById(R.id.web_pdf);
+        linearLayout = findViewById(R.id.linearFun1);
         if(view.canGoBack()) {
             view.goBack();
         } else {
-            super.onBackPressed();
+            if(view.getVisibility()== View.VISIBLE) {
+                view.setVisibility(View.INVISIBLE);
+                linearLayout.setVisibility(View.VISIBLE);
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 

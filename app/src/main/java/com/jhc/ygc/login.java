@@ -22,12 +22,14 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class login extends AppCompatActivity {
     FirebaseAuth fAuth;
     EditText mEmail;
     EditText mPassword;
-    Button mLogin,signUp,rstPass;
+    Button mLogin, signUp, rstPass;
 
     FloatingActionButton gleBtn;
     ProgressBar progressBar;
@@ -39,8 +41,8 @@ public class login extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser user = fAuth.getCurrentUser();
-        if(user!=null){
-           Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        if (user != null) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -50,7 +52,6 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
 
 
         mEmail = findViewById(R.id.username);
@@ -67,18 +68,18 @@ public class login extends AppCompatActivity {
 
         gleBtn.setOnClickListener(view -> signIn());
 
-        if(fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        if (fAuth.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }
 
         rstPass.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(),passReset.class));
+            startActivity(new Intent(getApplicationContext(), passReset.class));
             finish();
         });
 
         signUp.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(),register.class));
+            startActivity(new Intent(getApplicationContext(), register.class));
             finish();
         });
 
@@ -99,17 +100,17 @@ public class login extends AppCompatActivity {
             }
 
 
-                progressBar.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
 
             if (email.equals("admin@edutrix.lk")) {
                 fAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(authResult -> {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(login.this, "Admin Login Success", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(),detailupdate.class));
+                    startActivity(new Intent(getApplicationContext(), detailupdate.class));
                     finish();
                 }).addOnFailureListener(e -> {
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(login.this, "Login Failure: "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(login.this, "Login Failure: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
             } else {
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
@@ -119,7 +120,7 @@ public class login extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                     } else {
-                        if(task.getException()!=null) {
+                        if (task.getException() != null) {
                             Toast.makeText(getApplicationContext(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
@@ -181,12 +182,25 @@ public class login extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(login.this, "Login Success", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                        startActivity(intent);
-                        finish();
-
-
+                        FirebaseUser fUser = fAuth.getCurrentUser();
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        String fUserUid;
+                        if (fUser != null) {
+                            fUserUid = fUser.getUid();
+                            DocumentReference userDocRef = db.collection("user").document(fUserUid);
+                            userDocRef.get().addOnSuccessListener(documentSnapshot -> {
+                                if (documentSnapshot.exists()) {
+                                    Toast.makeText(login.this, "Login Success", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(this, "New User must sign up before using google sign-in", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(e -> Toast.makeText(this, "New User must sign up before using google sign-in", Toast.LENGTH_SHORT).show());
+                        } else {
+                            Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(login.this, "Sorry login failed.", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);

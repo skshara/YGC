@@ -39,14 +39,21 @@ public class QuizActivity extends AppCompatActivity {
     List<String> namesLink;
     FirebaseAuth fAuth;
     FirebaseUser fUser;
+    String selectedLink = "";
 
     @Override
     public void onBackPressed() {
         WebView view = findViewById(R.id.web_quiz);
+        linearLayout = findViewById(R.id.linearFun2);
         if(view.canGoBack()) {
             view.goBack();
         } else {
-            super.onBackPressed();
+            if(view.getVisibility()== View.VISIBLE) {
+                view.setVisibility(View.INVISIBLE);
+                linearLayout.setVisibility(View.VISIBLE);
+            } else {
+                super.onBackPressed();
+            }
         }
     }
     @Override
@@ -133,10 +140,16 @@ public class QuizActivity extends AppCompatActivity {
             });
         });
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
-            String selectedLink = namesLink.get(i);
-            if(!selectedLink.equals("eduTrix://nothing")) {
+            selectedLink = namesLink.get(i);
+            if(!selectedLink.equals("eduTrix://nothing")&&!selectedLink.equals("")) {
+                if(selectedLink.contains("forms")) {
+                    selectedLink = selectedLink + "?hl=en";
+                }
                 WebView webView = findViewById(R.id.web_quiz);
                 webView.setVisibility(View.VISIBLE);
+                int new1 = webView.getVisibility();
+                String new2 = Integer.toString(new1);
+                Log.d("TAG",new2);
                 linearLayout.setVisibility(View.INVISIBLE);
                 loadUrl(selectedLink);
             }
@@ -146,10 +159,12 @@ public class QuizActivity extends AppCompatActivity {
     @SuppressWarnings("deprecation")
     @SuppressLint("SetJavaScriptEnabled")
     public void loadUrl(String url) {
+        Log.d("TAG", "loadUrl: " + url);
         final WebView myWebView = findViewById(R.id.web_quiz);
         final ProgressDialog dialog = ProgressDialog.show(QuizActivity.this, "", getString(R.string.loading), true);
         myWebView.setVerticalScrollBarEnabled(false);
         myWebView.setHorizontalScrollBarEnabled(false);
+        myWebView.clearCache(true);
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
@@ -169,16 +184,16 @@ public class QuizActivity extends AppCompatActivity {
             }
 
             public void onPageFinished(WebView view, String url) {
-                //Toast.makeText(myActivity.this, "Oh no!", Toast.LENGTH_SHORT).show();
+                Log.d("TAG", "onPageFinished: " + url);
                 dialog.dismiss();
             }
 
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                myWebView.loadUrl("file:///android_asset/no-internet.html");
+                Log.d("TAG", "onReceivedError: " + description);
+                view.loadUrl("file:///android_asset/no-internet.html");
                 Toast.makeText(QuizActivity.this, description, Toast.LENGTH_SHORT).show();
             }
-
-        }); //End WebViewClient
+        }); // End WebViewClient
         myWebView.loadUrl(url);
     }
 }
