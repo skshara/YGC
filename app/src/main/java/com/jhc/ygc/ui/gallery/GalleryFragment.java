@@ -43,7 +43,7 @@ private FragmentGalleryBinding binding;
     FirebaseAuth fAuth;
     FirebaseUser fUser;
     String fUserUid;
-    TextView mEmail,mFname,mGrade,UserID,mPoints;
+    TextView mEmail,mFname,mGrade,UserID;
     Button editBtn;
     ImageView imageView;
     FirebaseFirestore db;
@@ -62,8 +62,6 @@ private FragmentGalleryBinding binding;
         mEmail = root.findViewById(R.id.textView4);
         mFname = root.findViewById(R.id.textView3);
         mGrade = root.findViewById(R.id.detail1);
-        mPoints = root.findViewById(R.id.detail2);
-        UserID = root.findViewById(R.id.detail3);
         imageView = root.findViewById(R.id.imageView4);
         editBtn = root.findViewById(R.id.back);
         fAuth = FirebaseAuth.getInstance();
@@ -74,11 +72,6 @@ private FragmentGalleryBinding binding;
         points = null;
 
         if (fUser != null) {
-            getPointsForCurrentUser();
-            if(points!=null) {
-                String point = points.toString().trim();
-                mPoints.setText(point);
-            }
             fUserUid = fUser.getUid();
             userDocRef = db.collection("user").document(fUserUid);
             userDocRef.get().addOnSuccessListener(documentSnapshot -> {
@@ -111,7 +104,6 @@ private FragmentGalleryBinding binding;
                             mFname.setText(fname);
                         }
                         mGrade.setText(grade);
-                        UserID.setText(fUserUid);
                     } else {
                         Log.d("FireStoreError","UserData is null, Checking google");
                         mEmail.setText(fUser.getEmail());
@@ -168,50 +160,7 @@ private FragmentGalleryBinding binding;
         galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
-    public void getPointsForCurrentUser() {
-        // Get the current Firebase user
 
-        // Obtain the user ID
-        String userId = fUser.getUid();
-
-        // Construct the API endpoint URL
-        String url = getString(R.string.H5P_BASE_URL) + "/points?user_id=" + userId;
-
-        // Create the request and make the API call
-        Request request = new Request.Builder()
-                .url(url)
-                .addHeader("Api-Key", getString(R.string.API_KEY))
-                .addHeader("Api-Secret", getString(R.string.API_SECRET))
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-                // Handle failure
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                // Handle the API response
-                if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    try {
-                        JSONObject jsonObject = new JSONObject(responseData);
-                        points = jsonObject.getInt("points");
-                        // Process the points data
-                        // You can perform any desired operations with the points value
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        // Handle JSON parsing error
-                    }
-                } else {
-                    // Handle API error response
-                }
-            }
-        });
-    }
 @Override
     public void onDestroyView() {
         super.onDestroyView();
