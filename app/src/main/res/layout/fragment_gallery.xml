@@ -56,6 +56,7 @@
                                 android:id="@+id/imageView5"
                                 android:layout_width="425sp"
                                 android:layout_height="412sp"
+                                android:background="@null"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/circles"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -74,6 +75,16 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:srcCompat="@drawable/usrbk" />
+
+                            <ImageButton
+                                android:id="@+id/imageButton"
+                                android:layout_width="49dp"
+                                android:layout_height="46dp"
+                                android:background="@android:color/transparent"
+                                android:src="?attr/actionModeCloseDrawable"
+                                android:tint="#FFFFFF"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <LinearLayout
