@@ -87,6 +87,7 @@ public class edit_info extends AppCompatActivity {
                                    Toast.makeText(edit_info.this, "Successfully changed email", Toast.LENGTH_SHORT).show();
                                    fUser.sendEmailVerification().addOnSuccessListener(unused3 -> {
                                        Toast.makeText(this, "Successfully sent email verification mail", Toast.LENGTH_SHORT).show();
+                                       fAuth.signOut();
                                    }).addOnFailureListener(e -> {
                                        Toast.makeText(this, "Failed to send user verification mail", Toast.LENGTH_SHORT).show();
                                    });
