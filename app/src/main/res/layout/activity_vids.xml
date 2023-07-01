@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fullscreen"
@@ -8,8 +10,6 @@
     tools:context=".VideoActivity"
     android:orientation="vertical"
     android:background="@drawable/rectangle_2">
-
-
     <WebView
         android:id="@+id/weblay"
         android:layout_width="match_parent"
@@ -57,10 +57,12 @@
                 <Spinner
                     android:id="@+id/gradeSpinner"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="48dp"
                     android:background="@color/primary"
                     android:textColor="@color/white"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"
+                    android:contentDescription="Grade selection"
+                />
 
             </LinearLayout>
 
@@ -79,10 +81,11 @@
                 <Spinner
                     android:id="@+id/subjectSpinner"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="48dp"
                     android:background="@color/primary"
                     android:textColor="@color/white"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"
+                    android:contentDescription="Subject selection"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -115,6 +118,5 @@
             android:padding="60dp" />
 
     </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-
-</FrameLayout>
