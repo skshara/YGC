@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -26,6 +27,7 @@ public class detailupdate extends AppCompatActivity {
     DocumentReference eBookUpload;
     DocumentReference quizzesUpload;
     FirebaseAuth fAuth;
+    FirebaseUser fUser;
 
     @Override
     protected void onDestroy() {
@@ -58,6 +60,7 @@ public class detailupdate extends AppCompatActivity {
         fLink = findViewById(R.id.link);
         db = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
+        fUser = fAuth.getCurrentUser();
 
         Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.types, android.R.layout.simple_spinner_item);
