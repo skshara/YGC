@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Click one of the above button to use our features", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Click one of the above button in Home to use our features", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
