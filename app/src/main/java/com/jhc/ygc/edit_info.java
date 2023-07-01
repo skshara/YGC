@@ -43,8 +43,14 @@ public class edit_info extends AppCompatActivity {
         Intent intent = getIntent();
         grade = intent.getStringExtra("grade");
         email = intent.getStringExtra("email");
-        mEmail.setHint(email);
-        mGrade.setHint(grade);
+
+        if(!grade.isEmpty()) {
+            mGrade.setHint(grade);
+        }
+        if(!email.isEmpty()) {
+            mEmail.setHint(email);
+        }
+
 
 
        update.setOnClickListener(view -> {
