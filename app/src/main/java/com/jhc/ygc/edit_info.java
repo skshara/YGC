@@ -3,6 +3,7 @@ package com.jhc.ygc;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,6 +28,7 @@ public class edit_info extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseUser fUser;
     FirebaseFirestore fStore;
+    String grade,email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,11 @@ public class edit_info extends AppCompatActivity {
         fAuth = fAuth.getInstance();
         fUser = fAuth.getCurrentUser();
         fStore = FirebaseFirestore.getInstance();
+        Intent intent = getIntent();
+        grade = intent.getStringExtra("grade");
+        email = intent.getStringExtra("email");
+        mEmail.setHint(email);
+        mGrade.setHint(grade);
 
 
        update.setOnClickListener(view -> {

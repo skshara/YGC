@@ -48,6 +48,7 @@ private FragmentGalleryBinding binding;
     ImageView imageView;
     FirebaseFirestore db;
     DocumentReference userDocRef;
+    String email,grade;
     public OkHttpClient client;
     public static Integer points;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -85,8 +86,8 @@ private FragmentGalleryBinding binding;
                     Map<String, Object> userData = documentSnapshot.getData();
                     if(userData!=null) {
                         String fname = (String) userData.get("fname");
-                        String email = (String) userData.get("email");
-                        String grade = (String) userData.get("grade");
+                        email = (String) userData.get("email");
+                        grade = (String) userData.get("grade");
                         if(fUser.getPhotoUrl() != null) {
                             Picasso.get().load(fUser.getPhotoUrl()).into(imageView);
                         }
@@ -157,6 +158,8 @@ private FragmentGalleryBinding binding;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), edit_info.class);
+                intent.putExtra("grade", grade);
+                intent.putExtra("email", email);
                 startActivity(intent);
             }
         });
