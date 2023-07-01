@@ -3,9 +3,7 @@ package com.jhc.ygc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
-import android.widget.ImageButton;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-     fAuth.getInstance();
+     fAuth = FirebaseAuth.getInstance();
 
      binding = ActivityMainBinding.inflate(getLayoutInflater());
      setContentView(binding.getRoot());
@@ -40,13 +38,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarMain.toolbar);
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Click one of the above button in Home to use our features", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "Click one of the above button in Home to use our features", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -56,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        String email = fAuth.getCurrentUser().getEmail();
+            if (email.equals("admin@edutrix.lk")) {
+                fAuth.signOut();
+                startActivity(new Intent(getApplicationContext(), login.class));
+                finish();
+            }
     }
 
     @Override
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.log_out) {
-            fAuth.getInstance().signOut();
+            fAuth.signOut();
             startActivity(new Intent(getApplicationContext(),login.class));
             finish();
             return true;
