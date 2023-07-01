@@ -1,5 +1,6 @@
 package com.jhc.ygc.ui.gallery;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -48,7 +49,7 @@ private FragmentGalleryBinding binding;
     ImageView imageView;
     FirebaseFirestore db;
     DocumentReference userDocRef;
-    String email,grade;
+    String email,grade,fname;
     public OkHttpClient client;
     public static Integer points;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ private FragmentGalleryBinding binding;
         client = new OkHttpClient();
         fUserUid = "123";
         points = null;
+        final ProgressDialog progress = ProgressDialog.show(getActivity(),"","Loading...",true);
 
         if (fUser != null) {
             fUserUid = fUser.getUid();
@@ -78,7 +80,7 @@ private FragmentGalleryBinding binding;
                 if (documentSnapshot.exists()) {
                     Map<String, Object> userData = documentSnapshot.getData();
                     if(userData!=null) {
-                        String fname = (String) userData.get("fname");
+                        fname = (String) userData.get("fname");
                         email = (String) userData.get("email");
                         grade = (String) userData.get("grade");
                         if(fUser.getPhotoUrl() != null) {
@@ -104,6 +106,7 @@ private FragmentGalleryBinding binding;
                             mFname.setText(fname);
                         }
                         mGrade.setText(grade);
+                        progress.dismiss();
                     } else {
                         Log.d("FireStoreError","UserData is null, Checking google");
                         mEmail.setText(fUser.getEmail());
@@ -121,6 +124,7 @@ private FragmentGalleryBinding binding;
                         if(fUser.getPhotoUrl() != null) {
                             Picasso.get().load(fUser.getPhotoUrl()).into(imageView);
                         }
+                        progress.dismiss();
                     }
                 } else {
                     // The document doesn't exist
@@ -140,10 +144,12 @@ private FragmentGalleryBinding binding;
                     if(fUser.getPhotoUrl() != null) {
                         Picasso.get().load(fUser.getPhotoUrl()).into(imageView);
                     }
+                    progress.dismiss();
                 }
             }).addOnFailureListener(e -> {
                 // Failed with error code e
                 Log.d("FirestoreError", "Error retrieving user document: " + e.getMessage());
+                progress.dismiss();
             });
         }
         editBtn.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +158,8 @@ private FragmentGalleryBinding binding;
                 Intent intent = new Intent(getActivity(), edit_info.class);
                 intent.putExtra("grade", grade);
                 intent.putExtra("email", email);
+                intent.putExtra("fname",fname);
+
                 startActivity(intent);
             }
         });

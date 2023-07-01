@@ -3,6 +3,7 @@ package com.jhc.ygc;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,12 +24,12 @@ import java.util.Map;
 
 public class edit_info extends AppCompatActivity {
 
-    TextInputEditText mEmail,mPassword,mGrade;
+    TextInputEditText mEmail,mPassword,mGrade,mFname;
     Button update;
     FirebaseAuth fAuth;
     FirebaseUser fUser;
     FirebaseFirestore fStore;
-    String grade,email;
+    String grade,email,fname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,23 +38,35 @@ public class edit_info extends AppCompatActivity {
         mEmail = findViewById(R.id.chemail);
         mPassword = findViewById(R.id.chpwd);
         mGrade = findViewById(R.id.chgrade);
+        mFname = findViewById(R.id.Usernamech);
         fAuth = fAuth.getInstance();
         fUser = fAuth.getCurrentUser();
         fStore = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
         grade = intent.getStringExtra("grade");
         email = intent.getStringExtra("email");
+        fname = intent.getStringExtra("fname");
 
         if(!grade.isEmpty()) {
             mGrade.setHint(grade);
+        } else {
+            mGrade.setHint("Give the new grade");
         }
         if(!email.isEmpty()) {
-            mEmail.setHint(email);
+            mEmail.setText(email);
+        } else {
+            mEmail.setText("Give the new email");
+        }
+        if(!fname.isEmpty()) {
+            mFname.setHint(fname);
+        } else {
+            mFname.setText("Give the new name");
         }
 
 
 
        update.setOnClickListener(view -> {
+           final ProgressDialog progress = ProgressDialog.show(getApplicationContext(),"","Loading...",true);
            if(fUser!=null) {
                String email = mEmail.getText().toString().trim();
                String password = mPassword.getText().toString().trim();
@@ -74,22 +87,26 @@ public class edit_info extends AppCompatActivity {
                                        db.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                            @Override
                                            public void onSuccess(Void unused) {
+                                               progress.dismiss();
                                                Toast.makeText(edit_info.this, "Successfully changed email", Toast.LENGTH_SHORT).show();
                                            }
                                        }).addOnFailureListener(new OnFailureListener() {
                                            @Override
                                            public void onFailure(@NonNull Exception e) {
                                                Toast.makeText(edit_info.this, "Failed to change email", Toast.LENGTH_SHORT).show();
+                                               progress.dismiss();
                                            }
                                        });
                                    } else {
                                        Toast.makeText(edit_info.this, "Successfully changed email", Toast.LENGTH_SHORT).show();
+                                       progress.dismiss();
                                    }
                                }
                            }).addOnFailureListener(new OnFailureListener() {
                                @Override
                                public void onFailure(@NonNull Exception e) {
                                    Toast.makeText(edit_info.this, "Failed to change email", Toast.LENGTH_SHORT).show();
+                                   progress.dismiss();
                                }
                            });
                        }
@@ -104,11 +121,13 @@ public class edit_info extends AppCompatActivity {
                            @Override
                            public void onSuccess(Void unused) {
                                Toast.makeText(edit_info.this, "Successfully updated password", Toast.LENGTH_SHORT).show();
+                               progress.dismiss();
                            }
                        }).addOnFailureListener(new OnFailureListener() {
                            @Override
                            public void onFailure(@NonNull Exception e) {
                                Toast.makeText(edit_info.this, "Failed to update password: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                               progress.dismiss();
                            }
                        });
                    }
@@ -129,11 +148,13 @@ public class edit_info extends AppCompatActivity {
                                    @Override
                                    public void onSuccess(Void unused) {
                                        Toast.makeText(edit_info.this, "Successfully changed grade", Toast.LENGTH_SHORT).show();
+                                       progress.dismiss();
                                    }
                                }).addOnFailureListener(new OnFailureListener() {
                                    @Override
                                    public void onFailure(@NonNull Exception e) {
                                        Toast.makeText(edit_info.this, "Failed to change grade", Toast.LENGTH_SHORT).show();
+                                       progress.dismiss();
                                    }
                                });
                            }
@@ -146,16 +167,19 @@ public class edit_info extends AppCompatActivity {
                                @Override
                                public void onSuccess(Void unused) {
                                    Toast.makeText(edit_info.this, "Successfully changed grade", Toast.LENGTH_SHORT).show();
+                                   progress.dismiss();
                                }
                            }).addOnFailureListener(new OnFailureListener() {
                                @Override
                                public void onFailure(@NonNull Exception e) {
                                    Toast.makeText(edit_info.this, "Failed to change grade", Toast.LENGTH_SHORT).show();
+                                   progress.dismiss();
                                }
                            });
 
                        }
                    }).addOnFailureListener(e -> {
+                       progress.dismiss();
                        // Failed with error code e
                        String userID = fAuth.getCurrentUser().getUid();
                        DocumentReference documentReference = fStore.collection("user").document(userID);
