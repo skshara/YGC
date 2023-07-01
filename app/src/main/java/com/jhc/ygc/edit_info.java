@@ -88,6 +88,8 @@ public class edit_info extends AppCompatActivity {
                                    fUser.sendEmailVerification().addOnSuccessListener(unused3 -> {
                                        Toast.makeText(this, "Successfully sent email verification mail", Toast.LENGTH_SHORT).show();
                                        fAuth.signOut();
+                                       startActivity(new Intent(getApplicationContext(),login.class));
+                                       finish();
                                    }).addOnFailureListener(e -> {
                                        Toast.makeText(this, "Failed to send user verification mail", Toast.LENGTH_SHORT).show();
                                    });
