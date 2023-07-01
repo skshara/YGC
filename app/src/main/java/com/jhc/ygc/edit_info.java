@@ -48,12 +48,16 @@ public class edit_info extends AppCompatActivity {
 
         if(!fGrade.isEmpty()) {
             mGrade.setHint(fGrade);
+        } else {
+            mGrade.setHint("Give the new name");
         }
         if(!fEmail.isEmpty()) {
             mEmail.setText(fEmail);
         }
         if(!fFname.isEmpty()) {
             mFname.setHint(fFname);
+        } else {
+            mFname.setHint("Give the new name");
         }
 
         backBtn.setOnClickListener(view -> {
