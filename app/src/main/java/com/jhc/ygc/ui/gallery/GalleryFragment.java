@@ -44,7 +44,7 @@ private FragmentGalleryBinding binding;
     FirebaseAuth fAuth;
     FirebaseUser fUser;
     String fUserUid;
-    TextView mEmail,mFname,mGrade,UserID;
+    TextView mEmail,mFname,mGrade;
     Button editBtn;
     ImageView imageView;
     FirebaseFirestore db;
