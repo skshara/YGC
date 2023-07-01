@@ -82,9 +82,9 @@
                                 android:layout_height="46dp"
                                 android:background="@android:color/transparent"
                                 android:src="?attr/actionModeCloseDrawable"
-                                android:tint="#FFFFFF"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="#FFFFFF" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <LinearLayout
