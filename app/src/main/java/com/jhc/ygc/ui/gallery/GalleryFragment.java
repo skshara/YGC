@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,21 +21,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.jhc.ygc.MainActivity;
 import com.jhc.ygc.R;
 import com.jhc.ygc.databinding.FragmentGalleryBinding;
 import com.jhc.ygc.edit_info;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.Map;
 
 public class GalleryFragment extends Fragment {
@@ -45,7 +36,8 @@ private FragmentGalleryBinding binding;
     FirebaseUser fUser;
     String fUserUid;
     TextView mEmail,mFname,mGrade;
-    Button editBtn,backBtn;
+    Button editBtn;
+    ImageButton backBtn;
     ImageView imageView;
     FirebaseFirestore db;
     DocumentReference userDocRef;
@@ -111,16 +103,8 @@ private FragmentGalleryBinding binding;
                     } else {
                         Log.d("FireStoreError","UserData is null, Checking google");
                         mEmail.setText(fUser.getEmail());
-                        if(fUser.getDisplayName() != null || fUser.getDisplayName() != "") {
+                        if(fUser.getDisplayName() != null || !fUser.getDisplayName().equals("")) {
                             mFname.setText(fUser.getDisplayName());
-                        } else {
-                            String newName = fUser.getEmail();
-                            if(newName.contains("@gmail.com")) {
-                                newName.replace("@gmail.com", "");
-                                mFname.setText(newName);
-                            } else {
-                                mFname.setText("User");
-                            }
                         }
                         if(fUser.getPhotoUrl() != null) {
                             Picasso.get().load(fUser.getPhotoUrl()).into(imageView);
@@ -131,16 +115,10 @@ private FragmentGalleryBinding binding;
                     // The document doesn't exist
                     Log.d("FirestoreError", "User document doesn't exist, checking google");
                     mEmail.setText(fUser.getEmail());
-                    if(fUser.getDisplayName() != null || fUser.getDisplayName() != "") {
+                    if(fUser.getDisplayName() != null || !fUser.getDisplayName().equals("")) {
                         mFname.setText(fUser.getDisplayName());
                     } else {
-                        String newName = fUser.getEmail();
-                        if(newName.contains("@gmail.com")) {
-                            newName.replace("@gmail.com", "");
-                            mFname.setText(newName);
-                        } else {
-                            mFname.setText("User");
-                        }
+                        mFname.setText("User");
                     }
                     if(fUser.getPhotoUrl() != null) {
                         Picasso.get().load(fUser.getPhotoUrl()).into(imageView);
@@ -154,19 +132,14 @@ private FragmentGalleryBinding binding;
             });
         }
 
-        backBtn.setOnClickListener(view -> {
-            super.getActivity().onBackPressed();
-        });
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), edit_info.class);
-                intent.putExtra("grade", grade);
-                intent.putExtra("email", email);
-                intent.putExtra("fname",fname);
+        backBtn.setOnClickListener(view -> super.getActivity().onBackPressed());
+        editBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), edit_info.class);
+            intent.putExtra("grade", grade);
+            intent.putExtra("email", email);
+            intent.putExtra("fname",fname);
 
-                startActivity(intent);
-            }
+            startActivity(intent);
         });
 
 

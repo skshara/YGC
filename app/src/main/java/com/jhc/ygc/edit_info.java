@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -21,7 +22,8 @@ import java.util.Objects;
 public class edit_info extends AppCompatActivity {
 
     TextInputEditText mEmail,mPassword,mGrade,mFname;
-    Button update,backBtn;
+    Button update;
+    ImageButton backBtn;
     FirebaseAuth fAuth;
     FirebaseUser fUser;
     FirebaseFirestore fStore;
