@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -82,7 +83,14 @@ public class edit_info extends AppCompatActivity {
                            if (userData != null) {
                                Map<String, Object> user = new HashMap<>();
                                user.put("email", email);
-                               db.update(user).addOnSuccessListener(unused1 -> Toast.makeText(edit_info.this, "Successfully changed email", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(edit_info.this, "Failed to change email", Toast.LENGTH_SHORT).show());
+                               db.update(user).addOnSuccessListener(unused1 -> {
+                                   Toast.makeText(edit_info.this, "Successfully changed email", Toast.LENGTH_SHORT).show();
+                                   fUser.sendEmailVerification().addOnSuccessListener(unused3 -> {
+                                       Toast.makeText(this, "Successfully sent email verification mail", Toast.LENGTH_SHORT).show();
+                                   }).addOnFailureListener(e -> {
+                                       Toast.makeText(this, "Failed to send user verification mail", Toast.LENGTH_SHORT).show();
+                                   });
+                               }).addOnFailureListener(e -> Toast.makeText(edit_info.this, "Failed to change email", Toast.LENGTH_SHORT).show());
                            } else {
                                Toast.makeText(edit_info.this, "Successfully changed email", Toast.LENGTH_SHORT).show();
                            }
