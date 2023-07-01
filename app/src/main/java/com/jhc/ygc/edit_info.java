@@ -21,7 +21,7 @@ import java.util.Objects;
 public class edit_info extends AppCompatActivity {
 
     TextInputEditText mEmail,mPassword,mGrade,mFname;
-    Button update;
+    Button update,backBtn;
     FirebaseAuth fAuth;
     FirebaseUser fUser;
     FirebaseFirestore fStore;
@@ -31,6 +31,7 @@ public class edit_info extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_info);
         update = findViewById(R.id.updatebtn);
+        backBtn = findViewById(R.id.imageButton2);
         mEmail = findViewById(R.id.chemail);
         mPassword = findViewById(R.id.chpwd);
         mGrade = findViewById(R.id.chgrade);
@@ -52,6 +53,10 @@ public class edit_info extends AppCompatActivity {
         if(!fFname.isEmpty()) {
             mFname.setHint(fFname);
         }
+
+        backBtn.setOnClickListener(view -> {
+            onBackPressed();
+        });
 
 
 

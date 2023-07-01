@@ -45,7 +45,7 @@ private FragmentGalleryBinding binding;
     FirebaseUser fUser;
     String fUserUid;
     TextView mEmail,mFname,mGrade;
-    Button editBtn;
+    Button editBtn,backBtn;
     ImageView imageView;
     FirebaseFirestore db;
     DocumentReference userDocRef;
@@ -65,6 +65,7 @@ private FragmentGalleryBinding binding;
         mGrade = root.findViewById(R.id.detail1);
         imageView = root.findViewById(R.id.imageView4);
         editBtn = root.findViewById(R.id.back);
+        backBtn = root.findViewById(R.id.imageButton);
         fAuth = FirebaseAuth.getInstance();
         fUser = fAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
@@ -152,6 +153,10 @@ private FragmentGalleryBinding binding;
                 progress.dismiss();
             });
         }
+
+        backBtn.setOnClickListener(view -> {
+            super.getActivity().onBackPressed();
+        });
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
