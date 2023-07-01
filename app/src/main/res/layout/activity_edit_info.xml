@@ -56,6 +56,7 @@ android:layout_marginTop="20dp"
                     android:id="@+id/Usernamech"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="Give the new name"
                     android:inputType="textPersonName"
                     android:textColorHint="#7C7C7C" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -71,6 +72,7 @@ android:layout_marginTop="20dp"
                 android:id="@+id/chemail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Give the new email"
                 android:inputType="textEmailAddress"
                 android:textColorHint="#7C7C7C" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -86,6 +88,7 @@ android:layout_marginTop="20dp"
                     android:id="@+id/chgrade"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="Give the new grade"
                     android:inputType="numberDecimal"
                     android:textColorHint="#7C7C7C" />
             </com.google.android.material.textfield.TextInputLayout>

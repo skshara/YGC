@@ -48,9 +48,9 @@ public class edit_info extends AppCompatActivity {
         fname = intent.getStringExtra("fname");
 
         if(!grade.isEmpty()) {
-            mGrade.setHint(grade);
+            mGrade.setText(grade);
         } else {
-            mGrade.setHint("Give the new grade");
+            mGrade.setText("Give the new grade");
         }
         if(!email.isEmpty()) {
             mEmail.setText(email);
@@ -58,7 +58,7 @@ public class edit_info extends AppCompatActivity {
             mEmail.setText("Give the new email");
         }
         if(!fname.isEmpty()) {
-            mFname.setHint(fname);
+            mFname.setText(fname);
         } else {
             mFname.setText("Give the new name");
         }
@@ -66,11 +66,10 @@ public class edit_info extends AppCompatActivity {
 
 
        update.setOnClickListener(view -> {
-           final ProgressDialog progress = ProgressDialog.show(getApplicationContext(),"","Loading...",true);
-           if(fUser!=null) {
                String email = mEmail.getText().toString().trim();
                String password = mPassword.getText().toString().trim();
                String grade = mGrade.getText().toString().trim();
+               String fname = mFname.getText().toString().trim();
                if (!TextUtils.isEmpty(email)) {
                    // Update email
                    fUser.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -87,26 +86,22 @@ public class edit_info extends AppCompatActivity {
                                        db.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                            @Override
                                            public void onSuccess(Void unused) {
-                                               progress.dismiss();
                                                Toast.makeText(edit_info.this, "Successfully changed email", Toast.LENGTH_SHORT).show();
                                            }
                                        }).addOnFailureListener(new OnFailureListener() {
                                            @Override
                                            public void onFailure(@NonNull Exception e) {
                                                Toast.makeText(edit_info.this, "Failed to change email", Toast.LENGTH_SHORT).show();
-                                               progress.dismiss();
                                            }
                                        });
                                    } else {
                                        Toast.makeText(edit_info.this, "Successfully changed email", Toast.LENGTH_SHORT).show();
-                                       progress.dismiss();
                                    }
                                }
                            }).addOnFailureListener(new OnFailureListener() {
                                @Override
                                public void onFailure(@NonNull Exception e) {
                                    Toast.makeText(edit_info.this, "Failed to change email", Toast.LENGTH_SHORT).show();
-                                   progress.dismiss();
                                }
                            });
                        }
@@ -121,20 +116,18 @@ public class edit_info extends AppCompatActivity {
                            @Override
                            public void onSuccess(Void unused) {
                                Toast.makeText(edit_info.this, "Successfully updated password", Toast.LENGTH_SHORT).show();
-                               progress.dismiss();
                            }
                        }).addOnFailureListener(new OnFailureListener() {
                            @Override
                            public void onFailure(@NonNull Exception e) {
                                Toast.makeText(edit_info.this, "Failed to update password: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                               progress.dismiss();
                            }
                        });
                    }
                }
                if (!TextUtils.isEmpty(grade)) {
                    // Update grade
-                   Integer gradeInt = Integer.parseInt(grade);
+                   int gradeInt = Integer.parseInt(grade);
                    if(gradeInt>5&&gradeInt<12) {
                    String fUserUid = fUser.getUid();
                    DocumentReference db = fStore.collection("user").document(fUserUid);
@@ -148,13 +141,11 @@ public class edit_info extends AppCompatActivity {
                                    @Override
                                    public void onSuccess(Void unused) {
                                        Toast.makeText(edit_info.this, "Successfully changed grade", Toast.LENGTH_SHORT).show();
-                                       progress.dismiss();
                                    }
                                }).addOnFailureListener(new OnFailureListener() {
                                    @Override
                                    public void onFailure(@NonNull Exception e) {
                                        Toast.makeText(edit_info.this, "Failed to change grade", Toast.LENGTH_SHORT).show();
-                                       progress.dismiss();
                                    }
                                });
                            }
@@ -167,19 +158,16 @@ public class edit_info extends AppCompatActivity {
                                @Override
                                public void onSuccess(Void unused) {
                                    Toast.makeText(edit_info.this, "Successfully changed grade", Toast.LENGTH_SHORT).show();
-                                   progress.dismiss();
                                }
                            }).addOnFailureListener(new OnFailureListener() {
                                @Override
                                public void onFailure(@NonNull Exception e) {
                                    Toast.makeText(edit_info.this, "Failed to change grade", Toast.LENGTH_SHORT).show();
-                                   progress.dismiss();
                                }
                            });
 
                        }
                    }).addOnFailureListener(e -> {
-                       progress.dismiss();
                        // Failed with error code e
                        String userID = fAuth.getCurrentUser().getUid();
                        DocumentReference documentReference = fStore.collection("user").document(userID);
@@ -200,7 +188,69 @@ public class edit_info extends AppCompatActivity {
                } else {
                        Toast.makeText(this, "Choose valid grade", Toast.LENGTH_SHORT).show();
                    }
-           }}
+           }
+               if (!TextUtils.isEmpty(fname)) {
+                       // Update grade;
+                           String fUserUid = fUser.getUid();
+                           DocumentReference db = fStore.collection("user").document(fUserUid);
+                           db.get().addOnSuccessListener(documentSnapshot -> {
+                               if (documentSnapshot.exists()) {
+                                   Map<String, Object> userData = documentSnapshot.getData();
+                                   if (userData != null) {
+                                       Map<String, Object> user = new HashMap<>();
+                                       user.put("fname", fname);
+                                       db.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                           @Override
+                                           public void onSuccess(Void unused) {
+                                               Toast.makeText(edit_info.this, "Successfully changed name", Toast.LENGTH_SHORT).show();
+                                           }
+                                       }).addOnFailureListener(new OnFailureListener() {
+                                           @Override
+                                           public void onFailure(@NonNull Exception e) {
+                                               Toast.makeText(edit_info.this, "Failed to change name", Toast.LENGTH_SHORT).show();
+                                           }
+                                       });
+                                   }
+                               } else {
+                                   String userID = fAuth.getCurrentUser().getUid();
+                                   DocumentReference documentReference = fStore.collection("user").document(userID);
+                                   Map<String, Object> user = new HashMap<>();
+                                   user.put("fname", fname);
+                                   documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                       @Override
+                                       public void onSuccess(Void unused) {
+                                           Toast.makeText(edit_info.this, "Successfully changed name", Toast.LENGTH_SHORT).show();
+                                       }
+                                   }).addOnFailureListener(new OnFailureListener() {
+                                       @Override
+                                       public void onFailure(@NonNull Exception e) {
+                                           Toast.makeText(edit_info.this, "Failed to change name", Toast.LENGTH_SHORT).show();
+                                       }
+                                   });
+// end
+                               }
+                           }).addOnFailureListener(e -> {
+                               // Failed with error code e
+                               String userID = fAuth.getCurrentUser().getUid();
+                               DocumentReference documentReference = fStore.collection("user").document(userID);
+                               Map<String, Object> user = new HashMap<>();
+                               user.put("fname", fname);
+                               documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                   @Override
+                                   public void onSuccess(Void unused) {
+                                       Toast.makeText(edit_info.this, "Successfully changed name", Toast.LENGTH_SHORT).show();
+                                   }
+                               }).addOnFailureListener(new OnFailureListener() {
+                                   @Override
+                                   public void onFailure(@NonNull Exception e) {
+                                       Toast.makeText(edit_info.this, "Failed to change name", Toast.LENGTH_SHORT).show();
+                                   }
+                               });
+                           });
+                       } else {
+                           Toast.makeText(this, "Choose valid name", Toast.LENGTH_SHORT).show();
+                       }
+
        });
        }
 }

@@ -97,8 +97,7 @@
                         android:inputType="textPassword"
                         android:textColor="@color/black"
                         android:textColorHint="#A8A8A8"
-                        android:textSize="20sp" />
-
+                        android:textSize="20sp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
