@@ -84,7 +84,7 @@ public class detailupdate extends AppCompatActivity {
         });
 
         upload.setOnClickListener(view -> {
-                if(fName.getText()!=null&&fLink.getText()!=null) {
+                if(!fName.getText().toString().equals("")&&!fLink.getText().toString().equals("")) {
                     String name = fName.getText().toString().trim();
                     String link = fLink.getText().toString().trim();
                     String content = spinner.getSelectedItem().toString();
