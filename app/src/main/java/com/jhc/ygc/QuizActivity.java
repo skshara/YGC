@@ -41,6 +41,7 @@ public class QuizActivity extends AppCompatActivity {
     FirebaseUser fUser;
     String selectedLink = "";
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onBackPressed() {
         WebView view = findViewById(R.id.web_quiz);
@@ -50,6 +51,7 @@ public class QuizActivity extends AppCompatActivity {
         } else {
             if(view.getVisibility()== View.VISIBLE) {
                 view.setVisibility(View.INVISIBLE);
+                view.clearView();
                 linearLayout.setVisibility(View.VISIBLE);
             } else {
                 super.onBackPressed();

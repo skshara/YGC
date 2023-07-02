@@ -136,6 +136,7 @@ public class eBookActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onBackPressed() {
         WebView view = findViewById(R.id.web_pdf);
@@ -145,6 +146,7 @@ public class eBookActivity extends AppCompatActivity {
         } else {
             if(view.getVisibility()== View.VISIBLE) {
                 view.setVisibility(View.INVISIBLE);
+                view.clearView();
                 linearLayout.setVisibility(View.VISIBLE);
             } else {
                 super.onBackPressed();

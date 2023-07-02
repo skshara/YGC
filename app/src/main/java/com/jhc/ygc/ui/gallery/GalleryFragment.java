@@ -44,6 +44,7 @@ private FragmentGalleryBinding binding;
     String email,grade,fname;
     public OkHttpClient client;
     public static Integer points;
+    @SuppressWarnings("deprecation")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         GalleryViewModel galleryViewModel =
                 new ViewModelProvider(this).get(GalleryViewModel.class);
